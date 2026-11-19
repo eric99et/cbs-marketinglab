@@ -107,6 +107,8 @@ h1, h2, h3 {
 }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--sage); }
 .btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--sage); }
+.btn:focus:not(:focus-visible) { outline: none; }
+.btn:focus-visible { outline: 3px solid var(--postit); outline-offset: 3px; }
 .btn.ghost { background: transparent; color: inherit; border-color: currentColor; box-shadow: 5px 5px 0 var(--mauve); }
 
 /* chapter: background colour changes the whole room */
@@ -141,4 +143,4 @@ body { background-color: var(--bg); color: var(--fg); }
 .page-title { font-size: clamp(72px, 15vw, 240px); line-height: 0.84; }
 .page-title .line { display: block; overflow: hidden; }
 
-body.theme-sage .site-header .logo img { box-shadow: 0 0 0 2px var(--ink); }
+.site-header .logo img { box-shadow: 0 0 0 2px var(--ink); }

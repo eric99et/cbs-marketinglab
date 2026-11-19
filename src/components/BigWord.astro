@@ -1,0 +1,27 @@
+---
+// Giant word with a cut-out photo standing in front of it.
+import { img } from '../data/site';
+interface Props { word: string; src: string; alt: string; bg?: string; fg?: string; width?: string; top?: string; size?: string }
+const { word, src, alt, bg = 'var(--sage)', fg = 'var(--paper)', width = '100%', top = 'clamp(30px, 6vw, 90px)', size = '23.5vw' } = Astro.props;
+---
+<section class="bigword" style={`--bw-bg:${bg};--bw-fg:${fg};--bw-w:${width};--bw-top:${top};--bw-size:${size}`} data-bigword>
+  <p class="bw-word" aria-hidden="true" data-bw-word>{word}</p>
+  <img class="bw-crew" src={img(src)} alt={alt} loading="lazy" data-bw-crew />
+</section>
+
+<style>
+  .bigword { position: relative; overflow: hidden; background: var(--bw-bg); padding-top: clamp(40px, 6vw, 90px); }
+  .bw-word { position: absolute; left: 0; right: 0; top: var(--bw-top); margin: 0; text-align: center; font-family: var(--f-display); text-transform: uppercase; font-size: var(--bw-size); line-height: 0.8; color: var(--bw-fg); letter-spacing: -0.01em; white-space: nowrap; z-index: 0; }
+  .bw-crew { position: relative; z-index: 1; display: block; width: var(--bw-w); height: auto; margin-inline: auto; }
+  @media (max-width: 700px) { .bw-crew { width: max(var(--bw-w), 78%); } }
+</style>
+
+<script>
+  import { gsap, reduce } from '../scripts/motion';
+  if (!reduce) {
+    document.querySelectorAll<HTMLElement>('[data-bigword]').forEach((sec) => {
+      gsap.fromTo(sec.querySelector('[data-bw-word]'), { xPercent: 8 }, { xPercent: -8, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
+      gsap.from(sec.querySelector('[data-bw-crew]'), { yPercent: 18, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom bottom', scrub: true } });
+    });
+  }
+</script>

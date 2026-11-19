@@ -1,14 +1,9 @@
 ---
 // EVENTS: dark room. Gig-poster wall that scrolls sideways, photos develop as they pass.
 import Base from '../layouts/Base.astro';
-import { img, upcoming, past, socials } from '../data/site';
+import { img, upcoming, past, socials, gcal } from '../data/site';
 
 // "Add to calendar" links for upcoming events (date as YYYY-MM-DD, time HH:MM)
-const gcal = (e: { title: string; place: string; blurb: string; iso?: string }) => {
-  if (!e.iso) return '';
-  const d = e.iso.replace(/[-:]/g, '');
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(e.title)}&dates=${d}/${d}&location=${encodeURIComponent(e.place)}&details=${encodeURIComponent(e.blurb)}`;
-};
 ---
 <Base page="events" theme="ink" title="Events | CBS MarketingLab">
   <section class="wrap page-top head">

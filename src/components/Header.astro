@@ -13,6 +13,8 @@ const links = nav.filter((l) => l.key !== 'home');
   </button>
 </header>
 
+<p class="toast mono" role="status" aria-live="polite" hidden data-toast></p>
+
 <div class="whiteboard" id="whiteboard" role="dialog" aria-modal="true" aria-label="Menu" hidden data-whiteboard>
   <button class="wb-close mono" type="button" data-menu-close>close ✕</button>
   <p class="wb-scribble hand" aria-hidden="true">brainstorm, do not erase!!</p>
@@ -79,6 +81,8 @@ const links = nav.filter((l) => l.key !== 'home');
   }
   .postit:hover { rotate: -3deg; scale: 1.06; }
 
+  .toast { position: fixed; z-index: 90; left: 50%; bottom: 24px; translate: -50% 140%; max-width: calc(100vw - 32px); margin: 0; padding: 14px 18px; background: var(--ink); color: var(--paper); border: 2px solid var(--sage); box-shadow: 5px 5px 0 var(--sage); text-transform: none; letter-spacing: 0.02em; font-size: 14px; transition: translate 0.35s ease; }
+  .toast.is-on { translate: -50% 0; }
   .whiteboard {
     position: fixed;
     inset: 0;
@@ -156,5 +160,16 @@ const links = nav.filter((l) => l.key !== 'home');
   openBtn.addEventListener('click', open);
   closeBtn.addEventListener('click', close);
   board.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', close));
+  // mail links open another app; drop focus so no ring is left behind on return
+  const toast = document.querySelector<HTMLElement>('[data-toast]')!;
+  let toastT = 0;
+  const showToast = (msg: string) => { toast.textContent = msg; toast.hidden = false; requestAnimationFrame(() => toast.classList.add('is-on')); clearTimeout(toastT); toastT = window.setTimeout(() => toast.classList.remove('is-on'), 4200); };
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest?.('a[href^="mailto:"]') as HTMLAnchorElement | null;
+    if (!a) return;
+    const addr = decodeURIComponent(a.href.slice(7).split('?')[0]);
+    navigator.clipboard?.writeText(addr).then(() => showToast(`Opening your email app. Address copied: ${addr}`), () => showToast(`Opening your email app. Our address: ${addr}`));
+    setTimeout(() => a.blur(), 0);
+  });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !board.hidden) close(); });
 </script>

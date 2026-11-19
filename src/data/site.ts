@@ -14,6 +14,11 @@ export const socials = [
 
 export type Event = { date: string; title: string; with: string; place: string; photo: string; tone: 'sage' | 'paper' | 'mauve'; blurb: string };
 export const upcoming: Event[] = [];
+export const gcal = (e: { title: string; place: string; blurb: string; iso?: string }) => {
+  if (!e.iso) return '';
+  const d = e.iso.replace(/[-:]/g, '');
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(e.title)}&dates=${d}/${d}&location=${encodeURIComponent(e.place)}&details=${encodeURIComponent(e.blurb)}`;
+};
 export const past: Event[] = [
   { date: '08.10.2026', title: 'Station Community Dinner', with: 'Bold Scandinavia / NoA', place: 'Station', photo: 'dinner', tone: 'sage', blurb: 'Long tables, good food and the people behind some of Scandinavia’s boldest brands.' },
   { date: '08.10.2026', title: 'AI in marketing', with: 'Bold Scandinavia', place: 'Station', photo: 'event-bold-talk', tone: 'paper', blurb: 'What AI actually changes for creative work, straight from the agency floor.' },

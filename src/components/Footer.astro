@@ -9,6 +9,7 @@ const year = new Date().getFullYear();
       <span class="hand">we don't bite (much) ↗</span>
     </a>
     <div class="meta">
+      <p class="paths"><a href={url('join/')}>Students: join the lab ↗</a><a href={`mailto:${EMAIL}?subject=${encodeURIComponent('Partnership with MarketingLab')}`}>Companies: partner with us ↗</a><a href={url('contact/#news')}>Newsletter ↗</a></p>
       <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       <p>Solbjergvej 3, 3rd floor, 2000 Frederiksberg</p>
       <ul class="socials">
@@ -31,6 +32,9 @@ const year = new Date().getFullYear();
   .cta .hand { font-size: 28px; color: var(--sage); }
   .meta { display: grid; gap: 8px; font-size: 16px; }
   .meta a { text-decoration-color: var(--sage); text-underline-offset: 4px; }
+  .paths { display: grid; gap: 4px; margin-bottom: 10px; font-family: var(--f-display); text-transform: uppercase; font-size: clamp(22px, 2vw, 28px); line-height: 1.1; }
+  .paths a { text-decoration: none; }
+  .paths a:hover { color: var(--sage); }
   .socials { list-style: none; display: flex; gap: 18px; padding: 0; margin: 6px 0 0; }
   .socials a { text-decoration: none; font-weight: 600; }
   .socials a:hover { color: var(--sage); }
