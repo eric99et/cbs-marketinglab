@@ -1,173 +1,86 @@
 ---
 import Base from '../layouts/Base.astro';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const img = (n: string) => `${base}/img/${n}.webp`;
-
-// Events: placeholders from Instagram until the Events team sends the full list
-const events = [
-  { date: '08.10.2026', title: 'Station Community Dinner', with: 'Bold Scandinavia / NoA', place: 'Station', photo: 'dinner', tone: 'sage' },
-  { date: '08.10.2026', title: 'AI in marketing', with: 'Bold Scandinavia', place: 'Station', photo: 'event-bold-talk', tone: 'paper' },
-  { date: '27.04.2026', title: 'Building brands with creative distinctiveness', with: 'Christian Langballe, Bold', place: 'Arena at Station', photo: 'poster-bold', tone: 'mauve' },
-  { date: '2021', title: 'Is the future plant-based?', with: 'Nielsen x Arla', place: 'CBS', photo: 'listening', tone: 'paper' },
-  { date: '2018', title: 'The Agency', with: 'Dziobak Larp Studios', place: 'CBS', photo: 'camera', tone: 'sage' },
-];
-const partners = ['Bold Scandinavia', 'NoA', "L'Oréal", 'Google x WeStart', 'DEPT', 'Nielsen', 'Arla', 'WeThink', 'FirstMind', 'Mimer', 'Female Invest'];
-const spots = [[4, 6], [46, 4], [62, 20], [8, 26], [38, 30], [58, 44], [6, 50], [30, 58], [56, 70], [10, 78], [40, 84]];
-const perks = ['real company cases', 'new friends', 'a CV that pops', 'citizenship point', 'free coffee'];
+import { img, url, partners, past } from '../data/site';
+const latest = past[0];
 ---
-<Base>
-  <!-- 01 HERO -->
-  <section class="hero" data-bg="paper" aria-labelledby="hero-title">
+<Base page="home" theme="paper">
+  <!-- HERO: collage -->
+  <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-inner">
-      <p class="mono hero-kicker" data-reveal>CBS MarketingLab · Est. 2012 · Copenhagen</p>
       <h1 id="hero-title" class="hero-title" style={`--photo:url(${img('dinner')})`}>
         <span class="line" data-split>Marketers</span>
         <span class="line" data-split>in the</span>
         <span class="line accent" data-split>making.</span>
       </h1>
-      <p class="hero-note hand" data-reveal>some of us already made it →</p>
-      <p class="hero-lede" data-reveal>A student organisation at Copenhagen Business School where the most curious marketers meet the brands, agencies and people shaping the industry.</p>
-      <div class="hero-cta" data-reveal>
-        <a class="btn" href="#events">See our events ↘</a>
-        <a class="btn ghost" href="#join">Join the Lab</a>
+      <p class="hero-note hand">some of us already made it →</p>
+      <p class="hero-lede">A student organisation at Copenhagen Business School where the most curious marketers meet the brands, agencies and people shaping the industry.</p>
+      <div class="hero-cta">
+        <a class="btn" href={url('events/')}>See our events ↘</a>
+        <a class="btn ghost" href={url('join/')}>Join the Lab</a>
       </div>
     </div>
 
     <div class="collage" aria-hidden="true">
-      <figure class="pol p1" data-drop><img src={img('dinner')} alt="" /><figcaption class="mono">station // 08.10</figcaption></figure>
-      <figure class="pol p2" data-drop><img src={img('moth')} alt="" /><figcaption class="mono">apply now</figcaption></figure>
-      <figure class="pol p3 bw" data-drop><img src={img('listening')} alt="" /><figcaption class="mono">cbs marketing lab</figcaption></figure>
-      <svg class="sketch-arrow" viewBox="0 0 220 140" data-draw>
+      <figure class="pol p1" data-drop><img src={img('dinner')} alt="" /></figure>
+      <figure class="pol p2" data-drop><img src={img('moth')} alt="" /></figure>
+      <figure class="pol p3 bw" data-drop><img src={img('listening')} alt="" /></figure>
+      <svg class="sketch-arrow" viewBox="0 0 220 140" data-hero-draw>
         <path d="M200 20 C 150 10, 90 30, 70 80 S 40 125, 18 120" />
         <path d="M30 104 L 16 121 L 38 128" />
       </svg>
-      <p class="sketch-label hand">event photo here ↖</p>
+      <p class="sketch-label hand">event photo here</p>
       <div class="stamp mono">MARKETING<br />✶ LAB ✶<br />CBS</div>
     </div>
   </section>
 
-  <!-- 02 ABOUT -->
-  <section id="about" class="chapter about" data-bg="sage" aria-labelledby="about-title">
-    <div class="wrap about-grid">
-      <div>
-        <p class="chapter-tag">02 / WHO WE ARE</p>
-        <h2 id="about-title" class="big" data-split-words>Since 2012, turning CBS students into people brands actually call back.</h2>
-      </div>
-      <div class="about-side">
-        <p class="lede">We build a bridge between students and the industry. Every week our labbers run events, courses and consulting projects together with some of Copenhagen's sharpest brands and agencies.</p>
-        <div class="note-card tape">
-          <p class="hand">what we actually do:</p>
-          <ul class="mono">
-            <li>✎ events with real brands</li>
-            <li>✎ consulting on real cases</li>
-            <li>✎ courses &amp; workshops</li>
-            <li>✎ friday hangouts</li>
-          </ul>
-        </div>
+  <!-- PARTNER TAPES: two bands crossing, running opposite ways -->
+  <div class="tapes" aria-label="Brands we've worked with">
+    <div class="tape-band band-a" aria-hidden="true">
+      <div class="band-track">
+        {[...partners, ...partners].map((p, i) => <span class={i % 2 ? 'outline' : ''}>{p}<i class="blob"></i></span>)}
       </div>
     </div>
-  </section>
-
-  <!-- 03 EVENTS (horizontal) -->
-  <section id="events" class="events" data-bg="paper" aria-labelledby="events-title">
-    <div class="events-pin" data-hscroll>
-      <div class="events-head wrap">
-        <p class="chapter-tag">03 / EVENTS</p>
-        <h2 id="events-title" class="big">Things you'll regret <span class="strike">missing</span> <span class="hand fix">skipping</span></h2>
-      </div>
-      <div class="events-track" data-track>
-        <article class="ticket next">
-          <p class="mono">admit one ✶ next up</p>
-          <h3>Coming soon</h3>
-          <p class="hand">we're cooking something. free pizza (probably)</p>
-          <a class="btn" href="https://www.instagram.com/marketinglab/" target="_blank" rel="noopener">Get notified ↗</a>
-        </article>
-        {events.map((e, i) => (
-          <article class={`poster tone-${e.tone}`} style={`--r:${i % 2 ? 2 : -2}deg`}>
-            <div class="poster-img"><img src={img(e.photo)} alt={`${e.title} with ${e.with}`} loading="lazy" /></div>
-            <p class="mono poster-date">{e.date} · {e.place}</p>
-            <h3>{e.title}</h3>
-            <p class="mono poster-with">with {e.with}</p>
-          </article>
-        ))}
-        <div class="events-end hand">← that's the highlight reel.<br />more photos coming.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 NUMBERS -->
-  <section class="chapter numbers" data-bg="ink" aria-labelledby="numbers-title">
-    <div class="wrap">
-      <p class="chapter-tag">04 / RECEIPTS</p>
-      <h2 id="numbers-title" class="big">Receipts.</h2>
-      <dl class="stats">
-        <div><dt class="mono">years of lab</dt><dd><span data-count="14">0</span></dd></div>
-        <div><dt class="mono">followers on IG</dt><dd><span data-count="1049">0</span>+</dd></div>
-        <div><dt class="mono">brands we've worked with</dt><dd><span data-count={partners.length}>0</span>+</dd></div>
-        <div><dt class="mono">boring events</dt><dd>0</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- 05 PARTNERS -->
-  <section id="partners" class="chapter partners" data-bg="mauve" aria-labelledby="partners-title">
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        {[...partners, ...partners].map((p) => <span>{p} ✶</span>)}
-      </div>
-    </div>
-    <div class="wrap partners-grid">
-      <div>
-        <p class="chapter-tag">05 / PARTNERS</p>
-        <h2 id="partners-title" class="big">Brands that took a chance on us <span class="hand small">(and liked it)</span></h2>
-        <p class="lede">Got a brief? We've got a room full of hungry marketers. Host an event, hand us a case or run a workshop.</p>
-        <a class="btn" href="mailto:general.marketinglab@gmail.com?subject=Partnership%20with%20MarketingLab">Partner with us ↗</a>
-      </div>
-      <div class="sticker-board" data-stickers>
-        <p class="hand board-hint">go on, throw them around ↓</p>
-        {partners.map((p, i) => (
-          <span class={`sticker s${i % 4}`} style={`--x:${spots[i % spots.length][0]}%; --y:${spots[i % spots.length][1]}%; --r:${((i * 29) % 30) - 15}deg`}>{p}</span>
-        ))}
+    <div class="tape-band band-b" aria-hidden="true">
+      <div class="band-track reverse">
+        {[...partners, ...partners].map(() => <span class="hand-item">worked with us, would do it again ✶</span>)}
       </div>
     </div>
     <ul class="visually-hidden">{partners.map((p) => <li>{p}</li>)}</ul>
-  </section>
+  </div>
 
-  <!-- 06 JOIN -->
-  <section id="join" class="chapter join" data-bg="paper" aria-labelledby="join-title">
-    <div class="wrap join-grid">
-      <div>
-        <p class="chapter-tag">06 / JOIN US</p>
-        <h2 id="join-title" class="big">Your CV called. <span class="accent">It wants this.</span></h2>
-        <p class="lede">Don't just join another student organisation. Help us build something from the ground up and leave your mark on a growing CBS community.</p>
-        <a class="btn" href="mailto:general.marketinglab@gmail.com?subject=I%20want%20to%20join%20MarketingLab">Apply now ↗</a>
-        <p class="hand join-note">application form coming soon. until then, slide into our inbox</p>
-      </div>
-      <div class="checklist lined tape" data-checklist>
-        <p class="hand cl-title">why join?</p>
-        <ul>
-          {perks.map((p) => (
-            <li><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 L 10 19 L 21 5" /></svg></span>{p}</li>
-          ))}
-        </ul>
-      </div>
+  <!-- DOORS: one door per page, each in that page's style -->
+  <section class="doors wrap" aria-labelledby="doors-title">
+    <h2 id="doors-title" class="doors-title">Pick a door.</h2>
+    <p class="hand doors-note">(they're all good doors)</p>
+    <div class="door-grid">
+      <a class="door door-about" href={url('about/')}>
+                <strong>Since 2012.</strong>
+        <span class="door-line">Turning CBS students into people brands call back.</span>
+        <span class="door-go">read the story →</span>
+      </a>
+      <a class="door door-events" href={url('events/')}>
+        <span class="hand door-ticket">admit one ✶</span>
+        <strong>Things you'll regret skipping</strong>
+        <img src={img(latest.photo)} alt="" loading="lazy" />
+        <span class="door-go">see the highlight reel →</span>
+      </a>
+      <a class="door door-partners" href={url('partners/')}>
+                <strong>Got a brief?</strong>
+        <span class="stickers" aria-hidden="true"><i>Bold</i><i>L'Oréal</i><i>DEPT</i><i>+8</i></span>
+        <span class="door-go">meet the brands →</span>
+      </a>
+      <a class="door door-join" href={url('join/')}>
+        <span class="hand door-hand">why join?</span>
+        <span class="door-list hand">☑ real cases<br />☑ new friends<br />☐ your name here</span>
+        <strong>Your CV called.</strong>
+        <span class="door-go">apply →</span>
+      </a>
     </div>
-
-    <form class="newsletter wrap" onsubmit="event.preventDefault(); this.querySelector('[data-thanks]').hidden = false;">
-      <label class="mono" for="nl-email">Get the good stuff first. No spam, we're too busy.</label>
-      <div class="nl-row">
-        <input id="nl-email" type="email" required placeholder="you@student.cbs.dk" autocomplete="email" />
-        <button class="btn" type="submit">Lock it in</button>
-      </div>
-      <p class="hand" data-thanks hidden>Got it. (Newsletter tool gets connected soon, so nothing was sent yet.)</p>
-    </form>
   </section>
-
-  <canvas class="marker" data-marker aria-hidden="true"></canvas>
 </Base>
 
 <style>
-  /* ---------- HERO ---------- */
+  /* HERO */
   .hero { position: relative; min-height: 100svh; padding-top: 120px; padding-bottom: 80px; overflow: hidden; }
   .hero-inner { position: relative; z-index: 2; }
   .hero-kicker { margin-bottom: 18px; color: var(--sage-dk); }
@@ -178,251 +91,84 @@ const perks = ['real company cases', 'new friends', 'a CV that pops', 'citizensh
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: saturate(1.2) contrast(1.1);
+    -webkit-text-stroke: clamp(2px, 0.35vw, 5px) var(--ink);
+    filter: saturate(1.15) brightness(0.9) contrast(1.15);
   }
   .hero-note { font-size: clamp(24px, 3vw, 38px); color: var(--sage-dk); rotate: -3deg; margin-top: 10px; }
   .hero-lede { max-width: 46ch; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink-soft); margin-top: 20px; }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
-
-  .collage { position: absolute; z-index: 1; top: 90px; right: 0; width: min(46vw, 640px); height: min(78vh, 720px); pointer-events: none; }
-  .pol { position: absolute; margin: 0; background: #fff; padding: 10px 10px 36px; box-shadow: 0 12px 28px rgba(32, 32, 32, 0.18); }
+  .collage { position: absolute; z-index: 1; top: 90px; right: var(--gutter); width: min(46vw, 640px); height: min(78vh, 720px); pointer-events: none; }
+  .pol { position: absolute; margin: 0; background: #fff; padding: 10px 10px 30px; box-shadow: 0 12px 28px rgba(32, 32, 32, 0.18); }
   .pol figcaption { position: absolute; left: 12px; bottom: 10px; font-size: 11px; color: var(--ink-soft); }
   .pol img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
   .p1 { width: 44%; right: 8%; top: 4%; rotate: 5deg; }
   .p2 { width: 34%; right: 46%; top: 22%; rotate: -7deg; }
   .p3 { width: 38%; right: 18%; top: 48%; rotate: 2deg; }
   .bw img { filter: grayscale(1) contrast(1.08); }
-  .sketch-arrow { position: absolute; width: 170px; right: 60%; top: 66%; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-  .sketch-label { position: absolute; right: 64%; top: 86%; font-size: 26px; white-space: nowrap; }
+  .sketch-arrow { position: absolute; width: 130px; right: 2%; top: 84%; scale: 1 -1; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .sketch-label { position: absolute; right: 0; top: 100%; font-size: 26px; white-space: nowrap; rotate: -3deg; }
   .stamp { position: absolute; right: 4%; top: 58%; width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--mauve); color: var(--mauve); display: grid; place-items: center; text-align: center; font-size: 11px; line-height: 1.4; rotate: 14deg; background: rgba(252, 248, 240, 0.75); animation: spin 22s linear infinite; }
   @keyframes spin { to { rotate: 374deg; } }
-
   @media (max-width: 900px) {
     .collage { position: relative; top: auto; width: 100%; height: 420px; margin-top: 40px; }
     .hero { padding-bottom: 40px; }
   }
 
-  /* ---------- ABOUT ---------- */
-  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 90px); align-items: end; }
-  .about .big { font-size: clamp(44px, 6.4vw, 104px); }
-  .lede { font-size: clamp(18px, 1.6vw, 21px); max-width: 48ch; }
-  .note-card { margin-top: 36px; background: var(--paper); padding: 26px 28px; rotate: 2deg; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.15); }
-  .note-card .hand { font-size: 30px; }
-  .note-card ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; text-transform: none; font-size: 15px; letter-spacing: 0.02em; }
-  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+  /* PARTNER TAPES */
+  .tapes { position: relative; height: clamp(190px, 22vw, 280px); margin-top: 20px; overflow: hidden; }
+  .tape-band { position: absolute; left: -10vw; width: 120vw; top: 50%; overflow: hidden; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.18); }
+  .band-a { background: var(--ink); color: var(--paper); rotate: -4deg; translate: 0 -62%; z-index: 2; padding: 18px 0; }
+  .band-b { background: var(--sage); color: var(--ink); rotate: 3deg; translate: 0 -10%; z-index: 1; padding: 10px 0; }
+  .band-track { display: flex; align-items: center; gap: 36px; width: max-content; animation: band 40s linear infinite; white-space: nowrap; }
+  .band-track.reverse { animation-direction: reverse; animation-duration: 55s; }
+  .tapes:hover .band-track { animation-play-state: paused; }
+  .band-track span { display: inline-flex; align-items: center; gap: 36px; font-family: var(--f-display); text-transform: uppercase; font-size: clamp(34px, 4.6vw, 64px); line-height: 1; }
+  .band-track span.outline { color: transparent; -webkit-text-stroke: 1.5px var(--paper); }
+  .band-track .hand-item { font-family: var(--f-hand); font-weight: 600; text-transform: none; font-size: clamp(24px, 2.6vw, 34px); }
+  .blob { display: inline-block; width: 0.42em; height: 0.36em; background: var(--sage); border-radius: 60% 40% 55% 45% / 55% 60% 40% 45%; rotate: 20deg; }
+  @keyframes band { to { translate: -50% 0; } }
 
-  /* ---------- EVENTS ---------- */
-  .events { position: relative; }
-  .events-pin { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 100px 60px; overflow: hidden; }
-  .events-head .big { font-size: clamp(48px, 7.5vw, 124px); }
-  .strike { position: relative; }
-  .strike::after { content: ''; position: absolute; left: -2%; right: -2%; top: 52%; height: 0.09em; background: #c0392b; rotate: -4deg; transform-origin: left; scale: var(--strike, 0) 1; transition: scale 0.5s ease; }
-  .fix { font-size: 0.5em; color: #c0392b; text-transform: none; vertical-align: top; opacity: var(--fix, 0); transition: opacity 0.4s ease 0.3s; }
-  .events.is-in .strike { --strike: 1; }
-  .events.is-in .fix { --fix: 1; }
-  .events-track { display: flex; gap: clamp(24px, 3vw, 44px); align-items: center; padding: 50px var(--gutter) 30px; width: max-content; }
-  .poster { width: clamp(260px, 26vw, 360px); padding: 14px 14px 22px; background: #fff; rotate: var(--r); box-shadow: 0 14px 30px rgba(32, 32, 32, 0.16); flex: none; transition: rotate 0.3s ease, translate 0.3s ease; }
-  .poster:hover { rotate: 0deg; translate: 0 -8px; }
-  .poster.tone-sage { background: var(--sage-lt); }
-  .poster.tone-mauve { background: var(--mauve-lt); }
-  .poster-img { overflow: hidden; aspect-ratio: 4 / 5; background: var(--ink); }
-  .poster-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); scale: 1.06; transition: filter 0.6s ease, scale 0.6s ease; }
-  .poster:hover .poster-img img, .poster.is-developed .poster-img img { filter: grayscale(0); scale: 1; }
-  .poster-date { margin-top: 14px; font-size: 12px; }
-  .poster h3 { font-size: clamp(26px, 2.4vw, 34px); margin-top: 6px; }
-  .poster-with { margin-top: 8px; font-size: 11px; color: var(--ink-soft); }
-  .ticket { flex: none; width: clamp(260px, 24vw, 330px); padding: 26px; background: var(--ink); color: var(--paper); border: 2px dashed var(--sage); rotate: -3deg; display: grid; gap: 12px; }
-  .ticket h3 { font-size: 52px; color: var(--sage); }
-  .ticket .hand { font-size: 24px; }
-  .ticket .btn { background: var(--sage); color: var(--ink); border-color: var(--sage); box-shadow: 5px 5px 0 var(--mauve); justify-self: start; }
-  .events-end { flex: none; font-size: 30px; width: 260px; }
-  @media (max-width: 900px) {
-    .events-pin { min-height: 0; }
-    .events-track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 40px; }
-    .events-track > * { scroll-snap-align: center; }
-  }
-
-  /* ---------- NUMBERS ---------- */
-  .numbers { color: var(--paper); }
-  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 60px 0 0; }
-  .stats div { border-top: 2px solid var(--sage); padding-top: 16px; }
-  .stats dt { color: var(--sage); }
-  .stats dd { margin: 8px 0 0; font-family: var(--f-display); font-size: clamp(52px, 6.6vw, 112px); line-height: 0.9; }
-  @media (max-width: 800px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-
-  /* ---------- PARTNERS ---------- */
-  .partners { overflow: hidden; padding-top: 0; }
-  .marquee { background: var(--sage); color: var(--ink); padding: 16px 0; rotate: -2deg; margin: 0 -20px clamp(60px, 9vw, 120px); overflow: hidden; }
-  .marquee-track { display: flex; gap: 40px; width: max-content; animation: marquee 32s linear infinite; font-family: var(--f-display); font-size: clamp(28px, 4vw, 52px); text-transform: uppercase; white-space: nowrap; }
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-  @keyframes marquee { to { translate: -50% 0; } }
-  .partners-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
-  .partners .big { font-size: clamp(44px, 6vw, 96px); }
-  .partners .small { font-size: 0.4em; text-transform: none; color: var(--paper); display: block; margin-top: 8px; }
-  .partners .lede { margin-block: 26px 30px; }
-  .sticker-board { position: relative; height: 460px; background: rgba(252, 248, 240, 0.35); border: 2px dashed rgba(32, 32, 32, 0.3); touch-action: none; }
-  .board-hint { position: absolute; top: -40px; left: 10px; font-size: 24px; }
-  .sticker { position: absolute; left: var(--x); top: var(--y); rotate: var(--r); padding: 12px 18px; font-family: var(--f-display); font-size: 22px; text-transform: uppercase; border-radius: 999px; cursor: grab; user-select: none; box-shadow: 0 4px 10px rgba(32, 32, 32, 0.2); border: 3px solid #fff; white-space: nowrap; }
-  .sticker:active { cursor: grabbing; }
-  .s0 { background: var(--paper); }
-  .s1 { background: var(--sage); }
-  .s2 { background: var(--ink); color: var(--paper); }
-  .s3 { background: var(--postit); }
-  @media (max-width: 900px) { .partners-grid { grid-template-columns: 1fr; } .sticker-board { height: 380px; margin-top: 30px; } }
-
-  /* ---------- JOIN ---------- */
-  .join-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(32px, 6vw, 90px); align-items: center; }
-  .join .big { font-size: clamp(52px, 8vw, 132px); }
-  .join .accent { color: var(--sage-dk); }
-  .join .lede { margin-block: 24px 30px; }
-  .join-note { font-size: 22px; margin-top: 18px; color: var(--ink-soft); }
-  .lined { background: #fff repeating-linear-gradient(transparent 0 35px, #cfd9e6 35px 36px); background-position: 0 18px; }
-  .checklist { padding: 34px 34px 26px 54px; rotate: -2deg; box-shadow: 0 14px 30px rgba(32, 32, 32, 0.16); border-left: 2px solid rgba(192, 57, 43, 0.4); }
-  .cl-title { font-size: 40px; line-height: 1; margin-bottom: 8px; }
-  .checklist ul { list-style: none; margin: 0; padding: 0; }
-  .checklist li { font-family: var(--f-hand); font-size: 30px; line-height: 36px; display: flex; gap: 12px; align-items: center; }
-  .box { width: 22px; height: 22px; border: 2px solid var(--ink); display: inline-grid; flex: none; }
-  .box svg { fill: none; stroke: var(--sage-dk); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 30; stroke-dashoffset: 30; transition: stroke-dashoffset 0.35s ease; overflow: visible; }
-  .checklist li.is-ticked .box svg { stroke-dashoffset: 0; }
-  .newsletter { margin-top: clamp(70px, 10vw, 130px); display: grid; gap: 14px; }
-  .nl-row { display: flex; gap: 14px; flex-wrap: wrap; }
-  .nl-row input { flex: 1 1 260px; font: inherit; font-size: 18px; padding: 14px 16px; border: 2px solid var(--ink); background: var(--paper); color: var(--ink); }
-  .newsletter .hand { font-size: 22px; }
-  @media (max-width: 900px) { .join-grid { grid-template-columns: 1fr; } }
-
-  /* ---------- MARKER CURSOR ---------- */
-  .marker { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 40; }
+  /* DOORS */
+  .doors { padding-block: clamp(100px, 14vw, 180px); }
+  .doors-title { font-size: clamp(64px, 11vw, 180px); }
+  .doors-note { font-size: 30px; color: var(--sage-dk); margin: 4px 0 50px; rotate: -2deg; }
+  .door-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); align-items: start; }
+  .door { position: relative; display: grid; gap: 14px; min-height: 380px; padding: 24px; text-decoration: none; transition: rotate 0.3s ease, translate 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 12px 26px rgba(32, 32, 32, 0.14); align-content: start; }
+  .door strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(32px, 3vw, 46px); line-height: 0.92; }
+  .door-go { margin-top: auto; align-self: end; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .door-ticket { font-size: 26px; color: var(--sage); }
+  .door:hover { rotate: 0deg !important; translate: 0 -10px; box-shadow: 0 22px 40px rgba(32, 32, 32, 0.22); }
+  .door-about { background: var(--sage); rotate: -2deg; }
+  .door-about strong { font-size: clamp(48px, 5vw, 76px); }
+  .door-events { background: var(--ink); color: var(--paper); rotate: 2deg; border: 2px dashed var(--sage); margin-top: 40px; }
+  .door-events img { aspect-ratio: 4 / 3; object-fit: cover; filter: grayscale(1); transition: filter 0.5s ease; }
+  .door-events:hover img { filter: none; }
+  .door-events strong { color: var(--sage); }
+  .door-partners { background: var(--mauve); rotate: -1deg; }
+  .stickers { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stickers i { font-style: normal; font-family: var(--f-display); text-transform: uppercase; padding: 8px 14px; border-radius: 999px; border: 3px solid #fff; background: var(--paper); box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); }
+  .stickers i:nth-child(2) { background: var(--postit); rotate: 6deg; }
+  .stickers i:nth-child(3) { background: var(--ink); color: var(--paper); rotate: -5deg; }
+  .door-join { background: #fff repeating-linear-gradient(transparent 0 31px, #cfd9e6 31px 32px); rotate: 3deg; margin-top: 20px; border-left: 2px solid rgba(192, 57, 43, 0.45); }
+  .door-hand { font-size: 36px; line-height: 1; }
+  .door-list { font-size: 26px; line-height: 32px; }
+  @media (max-width: 1000px) { .door-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .door-grid { grid-template-columns: 1fr; } .door { min-height: 0; margin-top: 0 !important; } }
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import { Draggable } from 'gsap/Draggable';
-  gsap.registerPlugin(ScrollTrigger, Draggable);
-
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const colors: Record<string, [string, string]> = {
-    paper: ['#FCF8F0', '#202020'],
-    sage: ['#90BCA5', '#202020'],
-    mauve: ['#A48888', '#202020'],
-    ink: ['#202020', '#FCF8F0'],
-  };
-
-  // Pinned sections first, so later triggers account for the pin spacing
+  import { gsap, reduce, splitLines, allBasics } from '../scripts/motion';
+  const tl = splitLines();
   if (!reduce) {
-    // Events: horizontal scroll on desktop, photos "develop" as they pass the centre
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 901px)', () => {
-      const track = document.querySelector<HTMLElement>('[data-track]')!;
-      const distance = () => track.scrollWidth - window.innerWidth;
-      const tween = gsap.to(track, {
-        x: () => -distance(),
-        ease: 'none',
-        scrollTrigger: { trigger: '[data-hscroll]', start: 'top top', end: () => `+=${distance()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true },
-      });
-      track.querySelectorAll<HTMLElement>('.poster').forEach((p) => {
-        ScrollTrigger.create({ trigger: p, containerAnimation: tween, start: 'left 70%', end: 'right 30%', toggleClass: 'is-developed' });
-      });
-    });
-
+    tl.from('[data-drop]', { y: -260, rotation: () => gsap.utils.random(-25, 25), opacity: 0, duration: 0.9, stagger: 0.12, ease: 'back.out(1.4)' }, 0.25);
+    const arrow = document.querySelectorAll<SVGPathElement>('[data-hero-draw] path');
+    arrow.forEach((p) => { const l = p.getTotalLength(); gsap.set(p, { strokeDasharray: l, strokeDashoffset: l }); });
+    tl.to(arrow, { strokeDashoffset: 0, duration: 0.8, stagger: 0.3, ease: 'power2.inOut' }, 1.1);
+    const st = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
+    gsap.to('.hero-title .accent > span', { backgroundPosition: 'center 70%', ease: 'none', scrollTrigger: st });
+    gsap.to('.p1', { yPercent: -30, ease: 'none', scrollTrigger: st });
+    gsap.to('.p3', { yPercent: -60, ease: 'none', scrollTrigger: st });
+    gsap.from('.door', { y: 120, opacity: 0, rotation: () => gsap.utils.random(-12, 12), duration: 0.9, stagger: 0.12, ease: 'back.out(1.3)', scrollTrigger: { trigger: '.door-grid', start: 'top 80%' } });
   }
-
-  // Background colour changes the whole room per chapter
-  document.querySelectorAll<HTMLElement>('main [data-bg]').forEach((sec) => {
-    const [bg, fg] = colors[sec.dataset.bg!] ?? colors.paper;
-    ScrollTrigger.create({
-      trigger: sec,
-      start: 'top 55%',
-      end: 'bottom 55%',
-      onToggle: (self) => {
-        if (self.isActive) gsap.to(document.body, { backgroundColor: bg, color: fg, duration: reduce ? 0 : 0.6, overwrite: true });
-      },
-    });
-  });
-
-  // Count-up numbers
-  document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
-    const target = Number(el.dataset.count);
-    const obj = { v: 0 };
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => gsap.to(obj, { v: target, duration: reduce ? 0 : 1.6, ease: 'power3.out', onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('en-US'); } }),
-    });
-  });
-
-  // Strike-through and handwritten fix on the events headline
-  const events = document.querySelector<HTMLElement>('.events')!;
-  ScrollTrigger.create({ trigger: events, start: 'top 60%', once: true, onEnter: () => events.classList.add('is-in') });
-
-  // Checklist ticks itself, one box at a time
-  const items = document.querySelectorAll<HTMLElement>('[data-checklist] li');
-  ScrollTrigger.create({
-    trigger: '[data-checklist]',
-    start: 'top 70%',
-    once: true,
-    onEnter: () => items.forEach((li, i) => setTimeout(() => li.classList.add('is-ticked'), reduce ? 0 : 250 + i * 320)),
-  });
-
-  if (!reduce) {
-    // Hero: letters slide up line by line, collage drops in, arrow draws itself
-    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-    document.querySelectorAll<HTMLElement>('[data-split]').forEach((line) => {
-      const text = line.textContent ?? '';
-      line.innerHTML = `<span style="display:inline-block">${text}</span>`;
-    });
-    tl.from('[data-split] > span', { yPercent: 110, duration: 1, stagger: 0.12 })
-      .from('[data-drop]', { y: -260, rotation: () => gsap.utils.random(-25, 25), opacity: 0, duration: 0.9, stagger: 0.12, ease: 'back.out(1.4)' }, 0.25)
-      .from('[data-reveal]', { y: 24, opacity: 0, duration: 0.7, stagger: 0.08 }, 0.6);
-
-    const arrowPaths = document.querySelectorAll<SVGPathElement>('[data-draw] path');
-    arrowPaths.forEach((p) => {
-      const len = p.getTotalLength();
-      gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
-    });
-    tl.to(arrowPaths, { strokeDashoffset: 0, duration: 0.8, stagger: 0.3, ease: 'power2.inOut' }, 1.1);
-
-    // Hero title photo drifts as you scroll; collage parallax
-    gsap.to('.hero-title .accent', { backgroundPosition: 'center 70%', ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.p1', { yPercent: -30, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.p3', { yPercent: -60, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-
-    // Big headings rise in
-    gsap.utils.toArray<HTMLElement>('.chapter .big').forEach((h) => {
-      gsap.from(h, { y: 60, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 85%' } });
-    });
-
-    // Partner stickers: throw them around
-    Draggable.create('.sticker', { bounds: '[data-stickers]', inertia: false, onPress() { gsap.to(this.target, { scale: 1.12, rotation: '+=6', duration: 0.15 }); }, onRelease() { gsap.to(this.target, { scale: 1, duration: 0.3, ease: 'back.out(3)' }); } });
-
-    // Marker-pen cursor: thin scribble that fades
-    if (window.matchMedia('(pointer: fine)').matches) {
-      const canvas = document.querySelector<HTMLCanvasElement>('[data-marker]')!;
-      const ctx = canvas.getContext('2d')!;
-      const pts: { x: number; y: number; t: number }[] = [];
-      const resize = () => { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
-      resize();
-      addEventListener('resize', resize);
-      addEventListener('pointermove', (e) => pts.push({ x: e.clientX, y: e.clientY, t: performance.now() }), { passive: true });
-      const draw = () => {
-        const now = performance.now();
-        while (pts.length && now - pts[0].t > 900) pts.shift();
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        for (let i = 1; i < pts.length; i++) {
-          const a = pts[i - 1], b = pts[i];
-          ctx.strokeStyle = `rgba(79,122,100,${(1 - (now - b.t) / 900) * 0.55})`;
-          ctx.lineWidth = 2.5;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-        requestAnimationFrame(draw);
-      };
-      requestAnimationFrame(draw);
-    }
-  }
+  allBasics();
 </script>

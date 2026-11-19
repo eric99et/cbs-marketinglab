@@ -1,0 +1,97 @@
+---
+// PARTNERS: mauve, brutalist. Hard borders, offset shadows, a sticker pile you can throw around.
+import Base from '../layouts/Base.astro';
+import { partners, EMAIL } from '../data/site';
+const spots = [[4, 8], [44, 4], [66, 18], [10, 30], [38, 34], [62, 46], [6, 56], [30, 64], [58, 74], [12, 82], [42, 88]];
+const formats = [
+  { n: 'A', title: 'Host an event', text: 'Talk, dinner or panel. We fill the room with CBS’s most curious marketers.', get: 'Brand love on campus' },
+  { n: 'B', title: 'Hand us a case', text: 'A real brief, a student team, a few weeks. You get fresh eyes, they get the experience.', get: 'New ideas, early talent' },
+  { n: 'C', title: 'Run a workshop', text: 'Teach a skill your team is great at. Hands-on, small group, high energy.', get: 'Your future hires, met early' },
+];
+const subject = encodeURIComponent('Partnership with MarketingLab');
+---
+<Base page="partners" theme="mauve" title="Partners | CBS MarketingLab">
+  <section class="wrap page-top top">
+    <div class="top-text">
+      <h1 class="title">
+        <span class="line" data-split>Brands that</span>
+        <span class="line" data-split>took a chance</span>
+        <span class="line" data-split>on us</span>
+      </h1>
+      <p class="hand aside">(and liked it)</p>
+    </div>
+    <div class="board" data-board>
+      <p class="hand board-label">go on, throw them around</p>
+      {partners.map((p, i) => (
+        <span class={`sticker s${i % 4}`} style={`--x:${spots[i % spots.length][0]}%; --y:${spots[i % spots.length][1]}%; --r:${((i * 29) % 30) - 15}deg`}>{p}</span>
+      ))}
+    </div>
+    <ul class="visually-hidden">{partners.map((p) => <li>{p}</li>)}</ul>
+  </section>
+
+  <section class="wrap pitch" aria-labelledby="pitch-title">
+    <h2 id="pitch-title" class="pitch-title">Got a brief? We've got a room full of hungry marketers.</h2>
+    <ol class="formats">
+      {formats.map((f) => (
+        <li>
+          <span class="f-n">{f.n}</span>
+          <h3>{f.title}</h3>
+          <p>{f.text} <em>You get: {f.get.toLowerCase()}.</em></p>
+        </li>
+      ))}
+    </ol>
+    <div class="cta">
+      <a class="btn big-btn" href={`mailto:${EMAIL}?subject=${subject}`}>Partner with us ↗</a>
+      <p class="hand">we reply faster than your agency</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .top { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 70px); align-items: start; padding-bottom: clamp(60px, 9vw, 120px); }
+  .title { font-size: clamp(56px, 8vw, 132px); line-height: 0.86; }
+  .title .line { display: block; overflow: hidden; }
+  .aside { font-size: clamp(30px, 3.4vw, 50px); color: var(--paper); rotate: -3deg; margin-top: 8px; }
+  .board { position: relative; height: min(70vh, 600px); min-height: 420px; background: var(--mauve-lt); border: 3px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); touch-action: none; overflow: hidden; }
+  .board-label { position: absolute; left: 14px; bottom: 8px; font-size: 24px; }
+  .sticker { position: absolute; left: var(--x); top: var(--y); rotate: var(--r); padding: 12px 20px; font-family: var(--f-display); font-size: clamp(18px, 1.8vw, 26px); text-transform: uppercase; border-radius: 999px; cursor: grab; user-select: none; box-shadow: 0 5px 12px rgba(32, 32, 32, 0.25); border: 3px solid #fff; white-space: nowrap; }
+  .sticker:active { cursor: grabbing; }
+  .s0 { background: var(--paper); }
+  .s1 { background: var(--sage); }
+  .s2 { background: var(--ink); color: var(--paper); }
+  .s3 { background: var(--postit); }
+
+  .pitch { padding-block: clamp(60px, 9vw, 120px) clamp(80px, 11vw, 150px); border-top: 3px solid var(--ink); }
+  .pitch-title { font-size: clamp(44px, 6vw, 96px); max-width: 14ch; }
+  .formats { list-style: none; padding: 0; margin: 50px 0 0; border-top: 3px solid var(--ink); }
+  .formats li { display: grid; grid-template-columns: 90px minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 3px solid var(--ink); transition: padding 0.2s ease, background 0.2s ease; }
+  .formats li:hover { background: var(--mauve-lt); padding-inline: 16px; }
+  .f-n { font-family: var(--f-display); font-size: 72px; line-height: 0.8; color: var(--paper); -webkit-text-stroke: 2px var(--ink); }
+  .formats h3 { font-size: clamp(34px, 3.6vw, 56px); }
+  .formats p { font-size: 18px; }
+  .formats em { font-style: normal; font-weight: 600; }
+  .cta { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 56px; }
+  .big-btn { font-size: 20px; padding: 20px 30px; box-shadow: 8px 8px 0 var(--paper); }
+  .big-btn:hover { box-shadow: 12px 12px 0 var(--paper); }
+  .cta .hand { font-size: 28px; }
+  @media (max-width: 900px) {
+    .top, .formats li { grid-template-columns: 1fr; }
+    .board { height: 440px; }
+  }
+</style>
+
+<script>
+  import { gsap, reduce, splitLines, allBasics } from '../scripts/motion';
+  import { Draggable } from 'gsap/Draggable';
+  gsap.registerPlugin(Draggable);
+  splitLines();
+  if (!reduce) {
+    gsap.from('.sticker', { y: -700, rotation: () => gsap.utils.random(-90, 90), duration: 1.1, stagger: 0.07, delay: 0.4, ease: 'bounce.out' });
+  }
+  Draggable.create('.sticker', {
+    bounds: '[data-board]',
+    onPress() { gsap.to(this.target, { scale: 1.15, rotation: '+=8', duration: 0.15, zIndex: 10 }); },
+    onRelease() { gsap.to(this.target, { scale: 1, duration: 0.4, ease: 'back.out(3)' }); },
+  });
+  allBasics();
+</script>

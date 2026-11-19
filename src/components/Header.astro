@@ -1,18 +1,13 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const links = [
-  { href: `${base}/#about`, label: 'who we are', note: 'since 2012' },
-  { href: `${base}/#events`, label: 'events', note: 'free pizza (probably)' },
-  { href: `${base}/#partners`, label: 'partners', note: 'got a brief?' },
-  { href: `${base}/#join`, label: 'join us', note: 'your CV called' },
-  { href: `${base}/#contact`, label: 'say hi', note: "we don't bite" },
-];
+import { base, url, nav, img } from '../data/site';
+const { current = 'home' } = Astro.props as { current?: string };
+const links = nav.filter((l) => l.key !== 'home');
 ---
 <header class="site-header" data-header>
-  <a class="logo" href={`${base}/`} aria-label="CBS MarketingLab home">
-    <img src={`${base}/img/logo.webp`} alt="" width="52" height="52" />
+  <a class="logo" href={url()} aria-label="CBS MarketingLab home">
+    <img src={img("logo")} alt="" width="52" height="52" />
   </a>
-  <a class="join hand" href={`${base}/#join`}>Join us ↗</a>
+  <a class="join hand" href={url("join/")}>Join us ↗</a>
   <button class="postit hand" type="button" aria-expanded="false" aria-controls="whiteboard" data-menu-open>
     menu
   </button>
@@ -24,8 +19,8 @@ const links = [
   <nav>
     <ul>
       {links.map((l, i) => (
-        <li style={`--i:${i}`}>
-          <a href={l.href} data-menu-link>
+        <li style={`--i:${i}`} class={l.key === current ? "is-current" : ""}>
+          <a href={l.href} data-menu-link aria-current={l.key === current ? 'page' : undefined}>
             <span class="wb-word">{l.label}</span>
             <svg class="wb-circle" viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
               <path d="M18 62 C 14 22, 120 8, 210 14 C 290 20, 296 70, 250 92 C 190 112, 60 108, 26 84 C 6 70, 20 40, 60 30" />
@@ -105,9 +100,10 @@ const links = [
   .whiteboard.is-open li { opacity: 1; translate: 0 0; }
   .whiteboard li:nth-child(even) { padding-left: clamp(20px, 8vw, 120px); }
   .whiteboard li a { position: relative; text-decoration: none; color: #1d3a8a; }
-  .wb-word { font-family: var(--f-hand); font-size: clamp(48px, 9vw, 110px); line-height: 1.05; }
-  .wb-circle { position: absolute; inset: -14% -8%; width: 116%; height: 128%; fill: none; stroke: #c0392b; stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 0.5s ease; pointer-events: none; }
+  .wb-word { font-family: var(--f-hand); font-size: clamp(46px, 8.4vw, 104px); line-height: 1.05; padding-inline: 0.12em; }
+  .wb-circle { position: absolute; left: -16%; top: -18%; width: 132%; height: 150%; fill: none; stroke: #c0392b; stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 0.5s ease; pointer-events: none; }
   .whiteboard li a:hover .wb-circle, .whiteboard li a:focus-visible .wb-circle { stroke-dashoffset: 0; }
+  .whiteboard li.is-current .wb-circle { stroke-dashoffset: 0; stroke: var(--sage-dk); }
   .wb-note { font-size: clamp(20px, 2.4vw, 28px); color: var(--ink-soft); }
   .wb-ticket {
     position: absolute;

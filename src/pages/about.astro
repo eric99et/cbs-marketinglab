@@ -1,0 +1,142 @@
+---
+// ABOUT: sage, editorial Bauhaus. Big shapes, strict grid, a timeline.
+import Base from '../layouts/Base.astro';
+import { url, partners } from '../data/site';
+const timeline = [
+  { year: '2012', text: 'A few CBS students decide marketing class needs a lab.', note: 'it begins' },
+  { year: '2018', text: '"The Agency": we simulate a whole media agency. For a day.', note: 'chaos (good)' },
+  { year: '2021', text: 'Nielsen x Arla case night, a podcast, and 35 labbers strong.', note: 'growing up' },
+  { year: '2026', text: 'Reimagined & rebranded. Events with Bold Scandinavia at Station.', note: 'hi, it’s us now' },
+];
+const teams = [
+  { name: 'Events', line: 'Turns ideas into nights people talk about.' },
+  { name: 'Partnerships', line: 'Brings the brands, agencies and briefs.' },
+  { name: 'Marketing', line: 'Makes the posters you stop scrolling for.' },
+  { name: 'Digital', line: 'Builds the site you’re on right now.' },
+];
+---
+<Base page="about" theme="sage" title="Who we are | CBS MarketingLab">
+  <section class="wrap page-top intro">
+    <h1 class="page-title">
+      <span class="line" data-split>We're the</span>
+      <span class="line" data-split>lab<span class="dot">.</span></span>
+    </h1>
+    <div class="intro-grid">
+      <p class="statement">Since 2012, turning CBS students into people brands actually call back.</p>
+      <p class="lede">We build a bridge between students and the industry. Every week our labbers run events, courses and consulting projects with some of Copenhagen's sharpest brands, agencies and marketing departments.</p>
+    </div>
+    <div class="shapes" aria-hidden="true">
+      <span class="sh circle" data-shape></span>
+      <span class="sh square" data-shape></span>
+      <span class="sh tri" data-shape></span>
+    </div>
+  </section>
+
+  <section class="wrap what" aria-labelledby="what-title">
+    <h2 id="what-title" class="sec-title">What we actually do</h2>
+    <ul class="what-list">
+      <li><strong>Events</strong><span>Talks, dinners and workshops with the people behind the brands.</span></li>
+      <li><strong>Consulting</strong><span>Student teams on real company cases, with real deadlines.</span></li>
+      <li><strong>Courses</strong><span>Mini marketing courses CBS doesn't teach (yet).</span></li>
+    </ul>
+  </section>
+
+  <section class="timeline" aria-labelledby="tl-title">
+    <div class="wrap">
+      <h2 id="tl-title" class="sec-title">Fourteen years in four lines</h2>
+    </div>
+    <ol class="tl wrap" data-tl>
+      {timeline.map((t) => (
+        <li>
+          <span class="tl-year">{t.year}</span>
+          <p>{t.text}</p>
+          <span class="hand tl-note">{t.note}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="wrap receipts" aria-labelledby="r-title">
+    <h2 id="r-title" class="sec-title">Receipts.</h2>
+    <dl class="stats">
+      <div><dt>years of lab</dt><dd><span data-count="14">0</span></dd></div>
+      <div><dt>followers on IG</dt><dd><span data-count="1049">0</span>+</dd></div>
+      <div><dt>brands we've worked with</dt><dd><span data-count={partners.length}>0</span>+</dd></div>
+      <div><dt>boring events</dt><dd>0</dd></div>
+    </dl>
+  </section>
+
+  <section class="wrap teams" aria-labelledby="t-title">
+    <h2 id="t-title" class="sec-title">The teams</h2>
+    <ul class="team-list">
+      {teams.map((t, i) => (
+        <li>
+          <span class="t-n">0{i + 1}</span>
+          <strong>{t.name}</strong>
+          <span>{t.line}</span>
+        </li>
+      ))}
+    </ul>
+    <a class="btn" href={url('join/')}>Join a team ↗</a>
+  </section>
+</Base>
+
+<style>
+  .intro { position: relative; padding-bottom: clamp(60px, 9vw, 120px); }
+  .dot { color: var(--paper); }
+  .intro-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(28px, 5vw, 80px); margin-top: 40px; align-items: end; position: relative; z-index: 2; }
+  .statement { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(30px, 3.6vw, 56px); line-height: 0.98; }
+  .shapes { position: absolute; right: var(--gutter); top: 130px; width: min(34vw, 420px); aspect-ratio: 1; z-index: 1; }
+  .sh { position: absolute; display: block; }
+  .sh.circle { width: 62%; aspect-ratio: 1; border-radius: 50%; background: var(--paper); right: 0; top: 0; }
+  .sh.square { width: 40%; aspect-ratio: 1; background: var(--ink); left: 6%; top: 34%; rotate: 8deg; }
+  .sh.tri { width: 44%; aspect-ratio: 1; background: var(--mauve); clip-path: polygon(50% 0, 100% 100%, 0 100%); right: 14%; bottom: 0; }
+
+  .sec-title { font-size: clamp(48px, 7vw, 110px); margin-bottom: 40px; }
+  .what { padding-block: clamp(60px, 9vw, 120px); border-top: 2px solid var(--ink); }
+  .what-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .what-list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 2px solid var(--ink); }
+  .what-list strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(44px, 6vw, 96px); line-height: 0.9; }
+  .what-list span { font-size: clamp(18px, 1.6vw, 22px); }
+  .timeline { padding-block: clamp(60px, 9vw, 120px); background: var(--ink); color: var(--paper); }
+  .tl { list-style: none; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; position: relative; padding-top: 30px; }
+  .tl::before { content: ''; position: absolute; left: var(--gutter); right: var(--gutter); top: 0; height: 3px; background: var(--sage); transform-origin: left; scale: var(--grow, 0) 1; transition: scale 1.4s ease; }
+  .tl.is-in { --grow: 1; }
+  .tl li { padding: 22px 20px 0 0; display: grid; gap: 10px; align-content: start; }
+  .tl-year { font-family: var(--f-display); font-size: clamp(56px, 6vw, 96px); line-height: 0.9; color: var(--sage); }
+  .tl-note { font-size: 24px; color: var(--mauve-lt); rotate: -2deg; }
+
+  .receipts { padding-block: clamp(60px, 9vw, 120px); }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 0; }
+  .stats div { border-top: 3px solid var(--ink); padding-top: 16px; }
+  .stats dt { font-size: 16px; }
+  .t-n { font-family: var(--f-display); font-size: 22px; }
+  .stats dd { margin: 8px 0 0; font-family: var(--f-display); font-size: clamp(52px, 6.6vw, 112px); line-height: 0.9; }
+
+  .teams { padding-block: 0 clamp(80px, 10vw, 140px); }
+  .team-list { list-style: none; padding: 0; margin: 0 0 40px; border-top: 2px solid var(--ink); }
+  .team-list li { display: grid; grid-template-columns: 60px minmax(0, 1fr) minmax(0, 1.4fr); gap: 20px; align-items: baseline; padding: 20px 0; border-bottom: 2px solid var(--ink); transition: background 0.2s ease, padding 0.2s ease; }
+  .team-list li:hover { background: var(--paper); padding-inline: 16px; }
+  .team-list strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(36px, 4vw, 60px); line-height: 1; }
+
+  @media (max-width: 900px) {
+    .intro-grid, .what-list li { grid-template-columns: 1fr; }
+    .shapes { position: relative; right: auto; top: auto; width: 70%; margin: 40px auto 0; }
+    .tl, .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+    .team-list li { grid-template-columns: 40px 1fr; }
+    .team-list li span:last-child { grid-column: 2; }
+  }
+</style>
+
+<script>
+  import { gsap, reduce, splitLines, allBasics } from '../scripts/motion';
+  splitLines();
+  if (!reduce) {
+    gsap.from('[data-shape]', { scale: 0, rotation: -90, duration: 1, stagger: 0.15, delay: 0.3, ease: 'back.out(1.6)' });
+    gsap.to('.sh.circle', { yPercent: 30, ease: 'none', scrollTrigger: { trigger: '.intro', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.sh.square', { rotation: 60, ease: 'none', scrollTrigger: { trigger: '.intro', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.from('.tl li', { y: 40, opacity: 0, duration: 0.7, stagger: 0.18, scrollTrigger: { trigger: '[data-tl]', start: 'top 80%' } });
+  }
+  document.querySelector('[data-tl]')?.setAttribute('data-in', '');
+  allBasics();
+</script>

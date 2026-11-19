@@ -127,3 +127,18 @@ h1, h2, h3 {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Page themes: each page has its own room */
+body.theme-paper { --bg: var(--paper); --fg: var(--ink); }
+body.theme-sage { --bg: var(--sage); --fg: var(--ink); }
+body.theme-mauve { --bg: var(--mauve); --fg: var(--ink); }
+body.theme-ink { --bg: var(--ink); --fg: var(--paper); }
+body.theme-board { --bg: #f7f7f2; --fg: var(--ink); background-image: radial-gradient(rgba(32, 32, 32, 0.06) 1px, transparent 1px); background-size: 22px 22px; }
+body { background-color: var(--bg); color: var(--fg); }
+
+.page-top { padding-top: clamp(120px, 16vh, 170px); }
+.lede { font-size: clamp(18px, 1.6vw, 21px); max-width: 52ch; }
+.page-title { font-size: clamp(72px, 15vw, 240px); line-height: 0.84; }
+.page-title .line { display: block; overflow: hidden; }
+
+body.theme-sage .site-header .logo img { box-shadow: 0 0 0 2px var(--ink); }
