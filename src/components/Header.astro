@@ -1,0 +1,164 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  { href: `${base}/#about`, label: 'who we are', note: 'since 2012' },
+  { href: `${base}/#events`, label: 'events', note: 'free pizza (probably)' },
+  { href: `${base}/#partners`, label: 'partners', note: 'got a brief?' },
+  { href: `${base}/#join`, label: 'join us', note: 'your CV called' },
+  { href: `${base}/#contact`, label: 'say hi', note: "we don't bite" },
+];
+---
+<header class="site-header" data-header>
+  <a class="logo" href={`${base}/`} aria-label="CBS MarketingLab home">
+    <img src={`${base}/img/logo.webp`} alt="" width="52" height="52" />
+  </a>
+  <a class="join hand" href={`${base}/#join`}>Join us ↗</a>
+  <button class="postit hand" type="button" aria-expanded="false" aria-controls="whiteboard" data-menu-open>
+    menu
+  </button>
+</header>
+
+<div class="whiteboard" id="whiteboard" role="dialog" aria-modal="true" aria-label="Menu" hidden data-whiteboard>
+  <button class="wb-close mono" type="button" data-menu-close>close ✕</button>
+  <p class="wb-scribble hand" aria-hidden="true">brainstorm, do not erase!!</p>
+  <nav>
+    <ul>
+      {links.map((l, i) => (
+        <li style={`--i:${i}`}>
+          <a href={l.href} data-menu-link>
+            <span class="wb-word">{l.label}</span>
+            <svg class="wb-circle" viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M18 62 C 14 22, 120 8, 210 14 C 290 20, 296 70, 250 92 C 190 112, 60 108, 26 84 C 6 70, 20 40, 60 30" />
+            </svg>
+          </a>
+          <span class="wb-note hand" aria-hidden="true">← {l.note}</span>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <div class="wb-ticket tape" aria-hidden="true">
+    <span class="mono">admit one ✶</span>
+    <strong>Next event</strong>
+    <span class="mono">TBA · stay tuned</span>
+  </div>
+</div>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 14px var(--gutter);
+    transition: translate 0.35s ease;
+    pointer-events: none;
+  }
+  .site-header > * { pointer-events: auto; }
+  .site-header.is-hidden { translate: 0 -120%; }
+  .logo img { width: 52px; height: 52px; border-radius: 14px; transition: rotate 0.3s ease, scale 0.3s ease; }
+  .logo:hover img { rotate: -8deg; scale: 1.08; }
+  .join {
+    font-size: 26px;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 2px 14px;
+    rotate: -2deg;
+    border-bottom: 2px solid var(--ink);
+  }
+  .postit {
+    justify-self: end;
+    font-size: 24px;
+    width: 86px;
+    height: 74px;
+    border: 0;
+    background: var(--postit);
+    color: var(--ink);
+    rotate: 4deg;
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: rotate 0.2s ease, scale 0.2s ease;
+    clip-path: polygon(0 0, 100% 0, 100% 82%, 86% 100%, 0 100%);
+  }
+  .postit:hover { rotate: -3deg; scale: 1.06; }
+
+  .whiteboard {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: #fbfbf8;
+    background-image: radial-gradient(rgba(32, 32, 32, 0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+    border: clamp(10px, 2vw, 18px) solid #d9d9d4;
+    padding: clamp(80px, 12vh, 120px) var(--gutter) 40px;
+    overflow-y: auto;
+    clip-path: circle(0% at calc(100% - 60px) 50px);
+    transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  .whiteboard.is-open { clip-path: circle(150% at calc(100% - 60px) 50px); }
+  .wb-close { position: absolute; top: 24px; right: var(--gutter); background: none; border: 1.5px solid var(--ink); padding: 8px 12px; cursor: pointer; color: var(--ink); }
+  .wb-scribble { position: absolute; top: 28px; left: var(--gutter); font-size: 22px; color: #c0392b; rotate: -3deg; }
+  .whiteboard ul { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(4px, 1.5vh, 18px); }
+  .whiteboard li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; opacity: 0; translate: -30px 0; transition: opacity 0.4s ease, translate 0.4s ease; transition-delay: calc(0.25s + var(--i) * 0.07s); }
+  .whiteboard.is-open li { opacity: 1; translate: 0 0; }
+  .whiteboard li:nth-child(even) { padding-left: clamp(20px, 8vw, 120px); }
+  .whiteboard li a { position: relative; text-decoration: none; color: #1d3a8a; }
+  .wb-word { font-family: var(--f-hand); font-size: clamp(48px, 9vw, 110px); line-height: 1.05; }
+  .wb-circle { position: absolute; inset: -14% -8%; width: 116%; height: 128%; fill: none; stroke: #c0392b; stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 0.5s ease; pointer-events: none; }
+  .whiteboard li a:hover .wb-circle, .whiteboard li a:focus-visible .wb-circle { stroke-dashoffset: 0; }
+  .wb-note { font-size: clamp(20px, 2.4vw, 28px); color: var(--ink-soft); }
+  .wb-ticket {
+    position: absolute;
+    right: clamp(16px, 6vw, 80px);
+    bottom: clamp(24px, 8vh, 80px);
+    display: grid;
+    gap: 4px;
+    padding: 18px 26px;
+    background: var(--sage);
+    color: var(--ink);
+    rotate: 6deg;
+    border: 2px dashed var(--ink);
+  }
+  .wb-ticket strong { font-family: var(--f-display); font-weight: 400; font-size: 34px; text-transform: uppercase; line-height: 1; }
+  @media (max-width: 720px) {
+    .join { font-size: 22px; padding: 2px 10px; }
+    .postit { width: 70px; height: 60px; font-size: 20px; }
+    .wb-ticket { position: static; margin-top: 40px; justify-self: start; width: max-content; }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')!;
+  const board = document.querySelector<HTMLElement>('[data-whiteboard]')!;
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]')!;
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]')!;
+
+  // header hides on scroll down, returns on scroll up
+  let lastY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    header.classList.toggle('is-hidden', y > lastY && y > 120);
+    lastY = y;
+  }, { passive: true });
+
+  const open = () => {
+    board.hidden = false;
+    requestAnimationFrame(() => board.classList.add('is-open'));
+    openBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  };
+  const close = () => {
+    board.classList.remove('is-open');
+    openBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    setTimeout(() => { board.hidden = true; }, 600);
+    openBtn.focus();
+  };
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  board.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !board.hidden) close(); });
+</script>
