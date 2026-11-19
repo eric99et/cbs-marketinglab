@@ -1,7 +1,7 @@
 ---
 // ABOUT: sage, editorial Bauhaus. Big shapes, strict grid, a timeline.
 import Base from '../layouts/Base.astro';
-import { url, partners } from '../data/site';
+import { url, img, partners, board } from '../data/site';
 const timeline = [
   { year: '2012', text: 'A few CBS students decide marketing class needs a lab.', note: 'it begins' },
   { year: '2018', text: '"The Agency": we simulate a whole media agency. For a day.', note: 'chaos (good)' },
@@ -39,6 +39,11 @@ const teams = [
       <li><strong>Consulting</strong><span>Student teams on real company cases, with real deadlines.</span></li>
       <li><strong>Courses</strong><span>Mini marketing courses CBS doesn't teach (yet).</span></li>
     </ul>
+    <div class="snaps" aria-hidden="true">
+      <figure class="snap s-a"><img src={img('stock-talk')} alt="" loading="lazy" /></figure>
+      <figure class="snap s-b"><img src={img('stock-sticky')} alt="" loading="lazy" /></figure>
+      <figure class="snap s-c"><img src={img('stock-dinner')} alt="" loading="lazy" /></figure>
+    </div>
   </section>
 
   <section class="timeline" aria-labelledby="tl-title">
@@ -79,6 +84,20 @@ const teams = [
     </ul>
     <a class="btn" href={url('join/')}>Join a team ↗</a>
   </section>
+
+  <section class="wrap people" aria-labelledby="p-title">
+    <h2 id="p-title" class="sec-title">The board</h2>
+    <ul class="board">
+      {board.map((b, i) => (
+        <li class={`pol b${i % 4}`}>
+          <span class="face" aria-hidden="true">{b.name ? b.name.split(' ').map((w) => w[0]).join('') : '?'}</span>
+          <strong>{b.name ?? 'Name coming soon'}</strong>
+          <span>{b.role}</span>
+          {b.linkedin && <a href={b.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>}
+        </li>
+      ))}
+    </ul>
+  </section>
 </Base>
 
 <style>
@@ -98,6 +117,12 @@ const teams = [
   .what-list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 2px solid var(--ink); }
   .what-list strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(44px, 6vw, 96px); line-height: 0.9; }
   .what-list span { font-size: clamp(18px, 1.6vw, 22px); }
+  .snaps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); margin-top: clamp(50px, 7vw, 90px); }
+  .snap { margin: 0; background: #fff; padding: 10px 10px 30px; box-shadow: 0 14px 30px rgba(32, 32, 32, 0.18); }
+  .snap img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; filter: grayscale(1) contrast(1.05); transition: filter 0.5s ease; }
+  .snap:hover img { filter: none; }
+  .s-a { rotate: -3deg; } .s-b { rotate: 2deg; translate: 0 24px; } .s-c { rotate: -1.5deg; }
+  @media (max-width: 700px) { .snaps { grid-template-columns: 1fr 1fr; } .s-c { display: none; } }
   .timeline { padding-block: clamp(60px, 9vw, 120px); background: var(--ink); color: var(--paper); }
   .tl { list-style: none; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; position: relative; padding-top: 30px; }
   .tl::before { content: ''; position: absolute; left: var(--gutter); right: var(--gutter); top: 0; height: 3px; background: var(--sage); transform-origin: left; scale: var(--grow, 0) 1; transition: scale 1.4s ease; }
@@ -119,7 +144,18 @@ const teams = [
   .team-list li:hover { background: var(--paper); padding-inline: 16px; }
   .team-list strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(36px, 4vw, 60px); line-height: 1; }
 
+  .people { padding-block: 0 clamp(80px, 10vw, 140px); }
+  .board { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+  .board .pol { background: #fff; padding: 10px 10px 18px; display: grid; gap: 4px; box-shadow: 0 12px 26px rgba(32, 32, 32, 0.16); transition: rotate 0.25s ease, translate 0.25s ease; }
+  .board .pol:hover { rotate: 0deg; translate: 0 -6px; }
+  .b0 { rotate: -2deg; } .b1 { rotate: 1.5deg; } .b2 { rotate: -1deg; } .b3 { rotate: 2deg; }
+  .face { aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--paper-2); font-family: var(--f-display); font-size: clamp(44px, 5vw, 72px); color: var(--sage-dk); margin-bottom: 8px; }
+  .board strong { font-family: var(--f-hand); font-weight: 600; font-size: 24px; line-height: 1.1; }
+  .board span:not(.face) { font-size: 15px; color: var(--ink-soft); }
+  .board a { font-size: 15px; font-weight: 600; }
+
   @media (max-width: 900px) {
+    .board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .intro-grid, .what-list li { grid-template-columns: 1fr; }
     .shapes { position: relative; right: auto; top: auto; width: 70%; margin: 40px auto 0; }
     .tl, .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }

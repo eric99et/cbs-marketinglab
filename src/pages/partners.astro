@@ -1,7 +1,7 @@
 ---
 // PARTNERS: mauve, brutalist. Hard borders, offset shadows, a sticker pile you can throw around.
 import Base from '../layouts/Base.astro';
-import { partners, EMAIL } from '../data/site';
+import { partners, img, EMAIL } from '../data/site';
 const spots = [[4, 8], [44, 4], [66, 18], [10, 30], [38, 34], [62, 46], [6, 56], [30, 64], [58, 74], [12, 82], [42, 88]];
 const formats = [
   { n: 'A', title: 'Host an event', text: 'Talk, dinner or panel. We fill the room with CBS’s most curious marketers.', get: 'Brand love on campus' },
@@ -29,8 +29,12 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
     <ul class="visually-hidden">{partners.map((p) => <li>{p}</li>)}</ul>
   </section>
 
-  <section class="wrap pitch" aria-labelledby="pitch-title">
-    <h2 id="pitch-title" class="pitch-title">Got a brief? We've got a room full of hungry marketers.</h2>
+  <section class="pitch" aria-labelledby="pitch-title">
+   <div class="wrap">
+    <div class="pitch-head">
+      <h2 id="pitch-title" class="pitch-title">Got a brief? We've got a room full of hungry marketers.</h2>
+      <figure class="pitch-pol" aria-hidden="true"><img src={img('stock-workshop')} alt="" loading="lazy" /><figcaption class="hand">your brief, our whiteboard</figcaption></figure>
+    </div>
     <ol class="formats">
       {formats.map((f) => (
         <li>
@@ -40,10 +44,16 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
         </li>
       ))}
     </ol>
+    <dl class="numbers">
+      <div><dt>CBS marketers on Instagram</dt><dd>1,049+</dd></div>
+      <div><dt>brands so far</dt><dd>{partners.length}</dd></div>
+      <div><dt>years on campus</dt><dd>{new Date().getFullYear() - 2012}</dd></div>
+    </dl>
     <div class="cta">
       <a class="btn big-btn" href={`mailto:${EMAIL}?subject=${subject}`}>Partner with us ↗</a>
       <p class="hand">we reply faster than your agency</p>
     </div>
+   </div>
   </section>
 </Base>
 
@@ -61,18 +71,27 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
   .s2 { background: var(--ink); color: var(--paper); }
   .s3 { background: var(--postit); }
 
-  .pitch { padding-block: clamp(60px, 9vw, 120px) clamp(80px, 11vw, 150px); border-top: 3px solid var(--ink); }
+  .pitch { padding-block: clamp(70px, 10vw, 130px) clamp(80px, 11vw, 150px); background: var(--paper); color: var(--ink); }
+  .pitch-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 70px); align-items: center; }
+  .pitch-pol { margin: 0; background: #fff; padding: 12px 12px 14px; rotate: 3deg; box-shadow: 0 18px 36px rgba(32, 32, 32, 0.2); }
+  .pitch-pol img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+  .pitch-pol figcaption { font-size: 26px; color: var(--mauve); margin-top: 6px; }
+  @media (max-width: 900px) { .pitch-head { grid-template-columns: 1fr; } }
   .pitch-title { font-size: clamp(44px, 6vw, 96px); max-width: 14ch; }
   .formats { list-style: none; padding: 0; margin: 50px 0 0; border-top: 3px solid var(--ink); }
   .formats li { display: grid; grid-template-columns: 90px minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 3px solid var(--ink); transition: padding 0.2s ease, background 0.2s ease; }
   .formats li:hover { background: var(--mauve-lt); padding-inline: 16px; }
-  .f-n { font-family: var(--f-display); font-size: 72px; line-height: 0.8; color: var(--paper); -webkit-text-stroke: 2px var(--ink); }
+  .f-n { font-family: var(--f-display); font-size: 72px; line-height: 0.8; color: var(--mauve); }
   .formats h3 { font-size: clamp(34px, 3.6vw, 56px); }
   .formats p { font-size: 18px; }
   .formats em { font-style: normal; font-weight: 600; }
+  .numbers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 50px 0 0; }
+  .numbers dt { font-size: 16px; }
+  .numbers dd { margin: 6px 0 0; font-family: var(--f-display); font-size: clamp(48px, 6vw, 96px); line-height: 0.9; }
   .cta { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 56px; }
-  .big-btn { font-size: 20px; padding: 20px 30px; box-shadow: 8px 8px 0 var(--paper); }
-  .big-btn:hover { box-shadow: 12px 12px 0 var(--paper); }
+  .big-btn { font-size: 20px; padding: 20px 30px; box-shadow: 8px 8px 0 var(--mauve); }
+  .big-btn:hover { box-shadow: 12px 12px 0 var(--mauve); }
+  .pitch .cta .hand { color: var(--mauve); font-size: 28px; }
   .cta .hand { font-size: 28px; }
   @media (max-width: 900px) {
     .top, .formats li { grid-template-columns: 1fr; }

@@ -4,49 +4,44 @@ import { img, url, partners, past } from '../data/site';
 const latest = past[0];
 ---
 <Base page="home" theme="paper">
-  <!-- HERO: collage -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="wrap hero-inner">
-      <h1 id="hero-title" class="hero-title" style={`--photo:url(${img('dinner')})`}>
+  <!-- HERO: clean split. Words left, collage right, nothing on top of the words -->
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <h1 id="hero-title" class="hero-title">
         <span class="line" data-split>Marketers</span>
         <span class="line" data-split>in the</span>
         <span class="line accent" data-split>making.</span>
       </h1>
-      <p class="hero-note hand">some of us already made it →</p>
-      <p class="hero-lede">A student organisation at Copenhagen Business School where the most curious marketers meet the brands, agencies and people shaping the industry.</p>
+      <p class="hero-lede">A student organisation at Copenhagen Business School where curious marketers meet the brands and agencies shaping the industry.</p>
       <div class="hero-cta">
-        <a class="btn" href={url('events/')}>See our events ↘</a>
-        <a class="btn ghost" href={url('join/')}>Join the Lab</a>
+        <a class="btn" href={url('events/')}>See our events</a>
+        <a class="btn ghost" href={url('partners/')}>For companies</a>
       </div>
     </div>
 
     <div class="collage" aria-hidden="true">
       <figure class="pol p1" data-drop><img src={img('dinner')} alt="" /></figure>
-      <figure class="pol p2" data-drop><img src={img('moth')} alt="" /></figure>
-      <figure class="pol p3 bw" data-drop><img src={img('listening')} alt="" /></figure>
-      <svg class="sketch-arrow" viewBox="0 0 220 140" data-hero-draw>
-        <path d="M200 20 C 150 10, 90 30, 70 80 S 40 125, 18 120" />
-        <path d="M30 104 L 16 121 L 38 128" />
-      </svg>
-      <p class="sketch-label hand">event photo here</p>
-      <div class="stamp mono">MARKETING<br />✶ LAB ✶<br />CBS</div>
+      <figure class="pol p2 bw" data-drop><img src={img('listening')} alt="" /></figure>
+      <p class="hand note">some of us already made it</p>
     </div>
   </section>
 
-  <!-- PARTNER TAPES: two bands crossing, running opposite ways -->
-  <div class="tapes" aria-label="Brands we've worked with">
-    <div class="tape-band band-a" aria-hidden="true">
-      <div class="band-track">
-        {[...partners, ...partners].map((p, i) => <span class={i % 2 ? 'outline' : ''}>{p}<i class="blob"></i></span>)}
-      </div>
-    </div>
-    <div class="tape-band band-b" aria-hidden="true">
-      <div class="band-track reverse">
-        {[...partners, ...partners].map(() => <span class="hand-item">worked with us, would do it again ✶</span>)}
+  <!-- PARTNERS: slim rolling strip -->
+  <section class="strip" aria-label="Brands we've worked with">
+    <p class="strip-label">Worked with</p>
+    <div class="strip-window" aria-hidden="true">
+      <div class="strip-track">
+        {[...partners, ...partners].map((p) => <span>{p}</span>)}
       </div>
     </div>
     <ul class="visually-hidden">{partners.map((p) => <li>{p}</li>)}</ul>
-  </div>
+  </section>
+
+  <!-- BIG WORD: cut-out crew standing in front of a giant word -->
+  <section class="bigword" aria-label="Marketing, by students">
+    <p class="bw-word" aria-hidden="true" data-bw-word>Marketing</p>
+    <img class="bw-crew" src={img('cutout-crew')} alt="Three students laughing around laptops" loading="lazy" data-bw-crew />
+  </section>
 
   <!-- DOORS: one door per page, each in that page's style -->
   <section class="doors wrap" aria-labelledby="doors-title">
@@ -81,52 +76,40 @@ const latest = past[0];
 
 <style>
   /* HERO */
-  .hero { position: relative; min-height: 100svh; padding-top: 120px; padding-bottom: 80px; overflow: hidden; }
-  .hero-inner { position: relative; z-index: 2; }
-  .hero-kicker { margin-bottom: 18px; color: var(--sage-dk); }
-  .hero-title { font-size: clamp(76px, 17.5vw, 300px); line-height: 0.84; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; min-height: 100svh; padding-block: 120px 60px; }
+  .hero-title { font-size: clamp(68px, 10.5vw, 176px); line-height: 0.86; }
   .hero-title .line { display: block; overflow: hidden; }
-  .hero-title .accent:not(:has(span)), .hero-title .accent > :global(span) {
-    background: var(--photo) center 30% / cover, var(--ink);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-stroke: clamp(2px, 0.35vw, 5px) var(--ink);
-    filter: saturate(1.15) brightness(0.9) contrast(1.15);
-  }
-  .hero-note { font-size: clamp(24px, 3vw, 38px); color: var(--sage-dk); rotate: -3deg; margin-top: 10px; }
-  .hero-lede { max-width: 46ch; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink-soft); margin-top: 20px; }
-  .hero-cta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
-  .collage { position: absolute; z-index: 1; top: 90px; right: var(--gutter); width: min(46vw, 640px); height: min(78vh, 720px); pointer-events: none; }
-  .pol { position: absolute; margin: 0; background: #fff; padding: 10px 10px 30px; box-shadow: 0 12px 28px rgba(32, 32, 32, 0.18); }
-  .pol figcaption { position: absolute; left: 12px; bottom: 10px; font-size: 11px; color: var(--ink-soft); }
+  .hero-title .accent { color: var(--sage-dk); }
+  .hero-lede { max-width: 40ch; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.5; color: var(--ink); margin-top: 28px; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 32px; }
+  .collage { position: relative; aspect-ratio: 4 / 5; max-height: 72vh; width: 100%; }
+  .pol { position: absolute; margin: 0; background: #fff; padding: 10px 10px 34px; box-shadow: 0 14px 30px rgba(32, 32, 32, 0.16); }
   .pol img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
-  .p1 { width: 44%; right: 8%; top: 4%; rotate: 5deg; }
-  .p2 { width: 34%; right: 46%; top: 22%; rotate: -7deg; }
-  .p3 { width: 38%; right: 18%; top: 48%; rotate: 2deg; }
+  .p1 { width: 66%; right: 0; top: 0; rotate: 4deg; }
+  .p2 { width: 52%; left: 0; bottom: 4%; rotate: -5deg; }
   .bw img { filter: grayscale(1) contrast(1.08); }
-  .sketch-arrow { position: absolute; width: 130px; right: 2%; top: 84%; scale: 1 -1; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-  .sketch-label { position: absolute; right: 0; top: 100%; font-size: 26px; white-space: nowrap; rotate: -3deg; }
-  .stamp { position: absolute; right: 4%; top: 58%; width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--mauve); color: var(--mauve); display: grid; place-items: center; text-align: center; font-size: 11px; line-height: 1.4; rotate: 14deg; background: rgba(252, 248, 240, 0.75); animation: spin 22s linear infinite; }
-  @keyframes spin { to { rotate: 374deg; } }
+  .note { position: absolute; right: 2%; bottom: 0; font-size: clamp(22px, 2.2vw, 30px); color: var(--sage-dk); rotate: -4deg; }
   @media (max-width: 900px) {
-    .collage { position: relative; top: auto; width: 100%; height: 420px; margin-top: 40px; }
-    .hero { padding-bottom: 40px; }
+    .hero { grid-template-columns: 1fr; min-height: 0; padding-bottom: 40px; }
+    .collage { max-height: none; width: min(100%, 420px); justify-self: center; }
   }
 
-  /* PARTNER TAPES */
-  .tapes { position: relative; height: clamp(190px, 22vw, 280px); margin-top: 20px; overflow: hidden; }
-  .tape-band { position: absolute; left: -10vw; width: 120vw; top: 50%; overflow: hidden; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.18); }
-  .band-a { background: var(--ink); color: var(--paper); rotate: -4deg; translate: 0 -62%; z-index: 2; padding: 18px 0; }
-  .band-b { background: var(--sage); color: var(--ink); rotate: 3deg; translate: 0 -10%; z-index: 1; padding: 10px 0; }
-  .band-track { display: flex; align-items: center; gap: 36px; width: max-content; animation: band 40s linear infinite; white-space: nowrap; }
-  .band-track.reverse { animation-direction: reverse; animation-duration: 55s; }
-  .tapes:hover .band-track { animation-play-state: paused; }
-  .band-track span { display: inline-flex; align-items: center; gap: 36px; font-family: var(--f-display); text-transform: uppercase; font-size: clamp(34px, 4.6vw, 64px); line-height: 1; }
-  .band-track span.outline { color: transparent; -webkit-text-stroke: 1.5px var(--paper); }
-  .band-track .hand-item { font-family: var(--f-hand); font-weight: 600; text-transform: none; font-size: clamp(24px, 2.6vw, 34px); }
-  .blob { display: inline-block; width: 0.42em; height: 0.36em; background: var(--sage); border-radius: 60% 40% 55% 45% / 55% 60% 40% 45%; rotate: 20deg; }
-  @keyframes band { to { translate: -50% 0; } }
+  /* PARTNER STRIP */
+  .strip { display: flex; align-items: center; gap: 28px; padding: 18px var(--gutter); border-block: 1px solid rgba(32, 32, 32, 0.18); }
+  .strip-label { flex: none; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
+  .strip-window { flex: 1; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .strip-track { display: flex; width: max-content; animation: strip 45s linear infinite; }
+  .strip:hover .strip-track { animation-play-state: paused; }
+  .strip-track span { font-size: clamp(16px, 1.4vw, 20px); font-weight: 600; letter-spacing: -0.01em; padding-inline: 28px; white-space: nowrap; position: relative; }
+  .strip-track span::after { content: ''; position: absolute; right: -3px; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--sage); translate: 0 -50%; }
+  @keyframes strip { to { translate: -50% 0; } }
+  @media (max-width: 560px) { .strip-label { display: none; } }
+
+  /* BIG WORD */
+  .bigword { position: relative; overflow: hidden; background: var(--sage); margin-top: clamp(60px, 8vw, 110px); padding-top: clamp(40px, 6vw, 90px); }
+  .bw-word { position: absolute; left: 0; right: 0; top: clamp(30px, 6vw, 90px); text-align: center; font-family: var(--f-display); text-transform: uppercase; font-size: 23.5vw; line-height: 0.8; color: var(--paper); letter-spacing: -0.01em; white-space: nowrap; z-index: 0; }
+  .bw-crew { position: relative; z-index: 1; display: block; width: 100%; height: auto; }
+  .doors { padding-top: clamp(80px, 11vw, 150px) !important; }
 
   /* DOORS */
   .doors { padding-block: clamp(100px, 14vw, 180px); }
@@ -161,13 +144,11 @@ const latest = past[0];
   const tl = splitLines();
   if (!reduce) {
     tl.from('[data-drop]', { y: -260, rotation: () => gsap.utils.random(-25, 25), opacity: 0, duration: 0.9, stagger: 0.12, ease: 'back.out(1.4)' }, 0.25);
-    const arrow = document.querySelectorAll<SVGPathElement>('[data-hero-draw] path');
-    arrow.forEach((p) => { const l = p.getTotalLength(); gsap.set(p, { strokeDasharray: l, strokeDashoffset: l }); });
-    tl.to(arrow, { strokeDashoffset: 0, duration: 0.8, stagger: 0.3, ease: 'power2.inOut' }, 1.1);
     const st = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
-    gsap.to('.hero-title .accent > span', { backgroundPosition: 'center 70%', ease: 'none', scrollTrigger: st });
-    gsap.to('.p1', { yPercent: -30, ease: 'none', scrollTrigger: st });
-    gsap.to('.p3', { yPercent: -60, ease: 'none', scrollTrigger: st });
+    gsap.to('.p1', { yPercent: -10, ease: 'none', scrollTrigger: st });
+    gsap.to('.p2', { yPercent: -22, ease: 'none', scrollTrigger: st });
+    gsap.fromTo('[data-bw-word]', { xPercent: 8 }, { xPercent: -8, ease: 'none', scrollTrigger: { trigger: '.bigword', start: 'top bottom', end: 'bottom top', scrub: true } });
+    gsap.from('[data-bw-crew]', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.bigword', start: 'top bottom', end: 'bottom bottom', scrub: true } });
     gsap.from('.door', { y: 120, opacity: 0, rotation: () => gsap.utils.random(-12, 12), duration: 0.9, stagger: 0.12, ease: 'back.out(1.3)', scrollTrigger: { trigger: '.door-grid', start: 'top 80%' } });
   }
   allBasics();

@@ -41,3 +41,12 @@ export const nav = [
   { href: url('join/'), label: 'join us', note: 'your CV called', key: 'join' },
   { href: url('contact/'), label: 'say hi', note: "we don't bite", key: 'contact' },
 ];
+
+// Board: fill in names, photos (public/img/board-<key>.webp) and LinkedIn URLs when the board confirms.
+export const board: { key: string; role: string; name?: string; linkedin?: string }[] = [
+  { key: 'president', role: 'President' },
+  { key: 'events', role: 'Head of Events' },
+  { key: 'partnerships', role: 'Head of Partnerships' },
+  { key: 'marketing', role: 'Head of Marketing' },
+  { key: 'digital', role: 'Head of Digital', name: 'Eric Sjölin' },
+];
