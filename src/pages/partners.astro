@@ -26,7 +26,7 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
       <p class="hand aside">(and liked it)</p>
     </div>
     <div class="wrap"><ul class="logos">
-      {partners.map((p) => <li>{p}</li>)}
+      {partners.map((p, i) => <li class={`t${i % 4}`}>{p}</li>)}
       <li class="you"><a href={`mailto:${PARTNER_EMAIL}?subject=${subject}`}>Your brand?</a></li>
     </ul></div>
   </section>
@@ -77,13 +77,13 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
   .title { font-size: clamp(56px, 9vw, 150px); line-height: 0.86; }
   .title .line { display: block; overflow: hidden; }
   .aside { font-size: clamp(40px, 4.4vw, 66px); color: var(--mauve); rotate: -1.8deg; margin: 4px 0 0 clamp(0px, 20vw, 380px); }
-  .logos { list-style: none; margin-top: clamp(40px, 6vw, 80px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1.5px solid var(--ink); border-left: 1.5px solid var(--ink); padding: 0; }
-  .logos li { display: grid; place-items: center; text-align: center; min-height: clamp(110px, 11vw, 160px); padding: 16px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); font-family: var(--f-display); text-transform: uppercase; font-size: clamp(22px, 2.2vw, 34px); line-height: 1; transition: background 0.25s ease, color 0.25s ease; }
-  .logos li:hover { background: var(--sage); }
-  .logos .you { background: var(--ink); color: var(--paper); }
+  .logos { list-style: none; margin: clamp(40px, 6vw, 80px) 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(22px, 2.6vw, 38px) clamp(16px, 2vw, 28px); }
+  .logos li { position: relative; padding: 18px 26px 16px; background: #fff; font-family: var(--f-display); text-transform: uppercase; font-size: clamp(26px, 2.6vw, 40px); line-height: 1; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.1); transition: rotate 0.25s ease, translate 0.25s ease; }
+  .logos li::before { content: ''; position: absolute; top: -11px; left: 50%; width: 64px; height: 22px; translate: -50% 0; rotate: -3deg; background: var(--tape); }
+  .logos .t0 { rotate: -1.5deg; } .logos .t1 { rotate: 1deg; background: var(--sage-lt); } .logos .t2 { rotate: -0.5deg; } .logos .t3 { rotate: 1.5deg; background: var(--mauve-lt); }
+  .logos li:hover { rotate: 0deg; translate: 0 -4px; }
+  .logos .you { background: var(--ink); color: var(--paper); rotate: -1deg; }
   .logos .you a { text-decoration: none; color: inherit; }
-  .logos .you:hover { background: var(--sage-dk); }
-  @media (max-width: 700px) { .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
   .pitch { padding-block: clamp(70px, 10vw, 130px) clamp(80px, 11vw, 150px); background: var(--sage-xl); color: var(--ink); border-top: 2px solid var(--ink); }
   .pitch-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 70px); align-items: center; }
@@ -131,7 +131,7 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
   import { gsap, reduce, splitLines, allBasics} from '../scripts/motion';
   splitLines();
   if (!reduce) {
-    gsap.from('.logos li', { clipPath: 'inset(0 0 100% 0)', duration: 0.7, stagger: 0.04, ease: 'power3.out', delay: 0.3 });
+    gsap.from('.logos li', { y: -40, rotation: () => gsap.utils.random(-12, 12), duration: 0.6, stagger: 0.05, ease: 'back.out(1.6)', delay: 0.3 });
     gsap.from('.pk', { y: 80, rotation: (i) => [-6, 3, 7][i], duration: 0.9, stagger: 0.12, ease: 'back.out(1.4)', scrollTrigger: { trigger: '.packages', start: 'top 85%' } });
   }
   allBasics();
