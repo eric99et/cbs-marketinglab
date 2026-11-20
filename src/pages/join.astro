@@ -31,14 +31,14 @@ const teams = ['Partnerships', 'Operations', 'Marketing', 'Digital', 'Finance', 
   </section>
 
   <section class="wrap steps" aria-labelledby="steps-title">
-    <h2 id="steps-title" class="sec">how it works →</h2>
+    <h2 id="steps-title" class="sec">how it works</h2>
     <ol class="flow">
       {steps.map((s, i) => (
         <li>
-          <span class="circle-n">{s.n}<svg viewBox="0 0 100 100" data-draw aria-hidden="true"><path d="M50 6 C 80 4, 96 30, 94 52 C 92 80, 66 96, 44 94 C 18 92, 4 70, 6 46 C 8 24, 26 8, 56 8" /></svg></span>
+          <span class="circle-n">{s.n}<svg viewBox="0 0 100 100" data-draw aria-hidden="true"><path d="M52 5 C 78 5, 95 24, 95 50 C 95 76, 76 95, 50 95 C 24 95, 5 76, 5 50 C 5 26, 22 7, 46 6 C 52 6, 58 7, 62 9" /></svg></span>
           <h3>{s.title}</h3>
           <p>{s.text}</p>
-          {i < steps.length - 1 && <svg class="flow-arrow" viewBox="0 0 120 40" data-draw aria-hidden="true"><path d="M4 24 C 40 6, 80 6, 112 20" /><path d="M98 8 L 114 21 L 96 30" /></svg>}
+          {i < steps.length - 1 && <svg class="flow-arrow" viewBox="0 0 64 28" data-draw aria-hidden="true"><path d="M3 17 C 16 9, 30 22, 44 13 C 50 9, 55 11, 60 13" /><path d="M50 4 C 54 8, 57 10, 61 13 C 56 16, 53 19, 50 24" /></svg>}
         </li>
       ))}
     </ol>
@@ -99,10 +99,10 @@ const teams = ['Partnerships', 'Operations', 'Marketing', 'Digital', 'Finance', 
   .steps { padding-block: clamp(50px, 7vw, 90px); }
   .flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
   .flow li { position: relative; display: grid; gap: 10px; align-content: start; }
-  .circle-n { position: relative; width: 96px; height: 96px; display: grid; place-items: center; font-family: var(--f-display); font-size: 52px; }
+  .circle-n { position: relative; width: 96px; height: 96px; display: grid; place-items: center; font-family: var(--f-display); font-size: 52px; line-height: 1; padding-top: 0.06em; }
   .circle-n svg { position: absolute; inset: 0; fill: none; stroke: #c0392b; stroke-width: 3; stroke-linecap: round; }
   .flow h3 { font-size: clamp(34px, 3.4vw, 52px); }
-  .flow-arrow { position: absolute; right: -60px; top: 30px; width: 100px; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .flow-arrow { position: absolute; right: -6px; top: 34px; width: 80px; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 
   .apply { padding-block: clamp(50px, 7vw, 90px); display: grid; grid-template-columns: minmax(0, 900px) minmax(0, 1fr); gap: clamp(30px, 4vw, 60px); align-items: start; }
   .apply .paper { grid-row: 1; grid-column: 1; }

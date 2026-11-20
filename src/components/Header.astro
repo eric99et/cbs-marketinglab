@@ -1,5 +1,6 @@
 ---
 import { base, url, nav, img } from '../data/site';
+import Arrow from './Arrow.astro';
 import Logo from './Logo.astro';
 const { current = 'home' } = Astro.props as { current?: string };
 const links = nav.filter((l) => l.key !== 'home');
@@ -29,7 +30,7 @@ const links = nav.filter((l) => l.key !== 'home');
               <path d="M18 62 C 14 22, 120 8, 210 14 C 290 20, 296 70, 250 92 C 190 112, 60 108, 26 84 C 6 70, 20 40, 60 30" />
             </svg>
           </a>
-          <span class="wb-note hand" aria-hidden="true">← {l.note}</span>
+          <span class="wb-note hand" aria-hidden="true"><Arrow dir="left" />{l.note}</span>
         </li>
       ))}
     </ul>
@@ -109,7 +110,7 @@ const links = nav.filter((l) => l.key !== 'home');
   .wb-circle { position: absolute; left: -16%; top: -18%; width: 132%; height: 150%; fill: none; stroke: #c0392b; stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 0.5s ease; pointer-events: none; }
   .whiteboard li a:hover .wb-circle, .whiteboard li a:focus-visible .wb-circle { stroke-dashoffset: 0; }
   .whiteboard li.is-current .wb-circle { stroke-dashoffset: 0; stroke: var(--sage-dk); }
-  .wb-note { font-size: clamp(20px, 2.4vw, 28px); color: var(--ink-soft); }
+  .wb-note { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(20px, 2.4vw, 28px); color: var(--ink-soft); line-height: 1; }
   .wb-ticket {
     position: absolute;
     right: clamp(16px, 6vw, 80px);

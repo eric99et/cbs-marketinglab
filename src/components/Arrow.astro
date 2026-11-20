@@ -1,0 +1,12 @@
+---
+// Hand-drawn arrow that matches the script font. dir: 'left' | 'right'.
+const { dir = 'right', cls = '' } = Astro.props as { dir?: 'left' | 'right'; cls?: string };
+---
+<svg class={`h-arrow ${dir} ${cls}`} viewBox="0 0 64 28" aria-hidden="true">
+  <path d="M3 17 C 16 9, 30 22, 44 13 C 50 9, 55 11, 60 13" />
+  <path d="M50 4 C 54 8, 57 10, 61 13 C 56 16, 53 19, 50 24" />
+</svg>
+<style>
+  .h-arrow { width: 1.9em; height: auto; flex: none; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; overflow: visible; }
+  .h-arrow.left { scale: -1 1; }
+</style>
