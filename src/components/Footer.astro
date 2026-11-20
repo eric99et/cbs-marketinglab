@@ -1,5 +1,6 @@
 ---
-import { url, img, EMAIL, socials } from '../data/site';
+import { url, img, EMAIL, PARTNER_EMAIL, socials } from '../data/site';
+import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -9,7 +10,7 @@ const year = new Date().getFullYear();
       <span class="hand">we don't bite (much) ↗</span>
     </a>
     <div class="meta">
-      <p class="paths"><a href={url('join/')}>Students: join the lab ↗</a><a href={`mailto:${EMAIL}?subject=${encodeURIComponent('Partnership with MarketingLab')}`}>Companies: partner with us ↗</a><a href={url('contact/#news')}>Newsletter ↗</a></p>
+      <p class="paths"><a href={url('join/')}>Students: join the lab ↗</a><a href={`mailto:${PARTNER_EMAIL}?subject=${encodeURIComponent('Partnership with MarketingLab')}`}>Companies: partner with us ↗</a><a href={url('contact/#news')}>Newsletter ↗</a></p>
       <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       <p>Solbjergvej 3, 3rd floor, 2000 Frederiksberg</p>
       <ul class="socials">
@@ -18,7 +19,7 @@ const year = new Date().getFullYear();
     </div>
   </div>
   <div class="wrap bottom">
-    <img src={img('logo')} alt="CBS MarketingLab" width="36" height="36" />
+    <Logo size={36} />
     <span>Made with too much coffee at Solbjergvej 3 · © {year} CBS MarketingLab</span>
   </div>
 </footer>
@@ -39,5 +40,4 @@ const year = new Date().getFullYear();
   .socials a { text-decoration: none; font-weight: 600; }
   .socials a:hover { color: var(--sage); }
   .bottom { display: flex; align-items: center; gap: 14px; margin-top: 60px; padding-top: 22px; border-top: 1px dashed rgba(252, 248, 240, 0.3); font-size: 13px; color: rgba(252, 248, 240, 0.7); }
-  .bottom img { border-radius: 10px; }
 </style>

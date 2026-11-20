@@ -6,6 +6,7 @@ export const img = (n: string) => `${base}/img/${n}.webp`;
 export const url = (p = '') => `${base}/${p}`;
 
 export const EMAIL = 'general.marketinglab@gmail.com';
+export const PARTNER_EMAIL = 'marketinglab.partnerships@gmail.com';
 
 export const socials = [
   { name: 'Instagram', handle: '@marketinglab', href: 'https://www.instagram.com/marketinglab/' },
@@ -48,10 +49,21 @@ export const nav = [
 ];
 
 // Board: fill in names, photos (public/img/board-<key>.webp) and LinkedIn URLs when the board confirms.
-export const board: { key: string; role: string; name?: string; linkedin?: string }[] = [
-  { key: 'president', role: 'President' },
-  { key: 'events', role: 'Head of Events' },
-  { key: 'partnerships', role: 'Head of Partnerships' },
-  { key: 'marketing', role: 'Head of Marketing' },
+export const board: { key: string; role: string; name: string; photo?: string; linkedin?: string }[] = [
+  { key: 'president', role: 'President', name: 'Arshdip Kang', photo: 'board-president' },
+  { key: 'partnerships', role: 'VP & Head of Partnerships', name: 'Vanessa Begovic', photo: 'board-partnerships' },
+  { key: 'marketing', role: 'Head of Marketing', name: 'Neda Elze Stundzyte', photo: 'board-marketing' },
+  { key: 'operations', role: 'Head of Operations', name: 'Tuva Lagerdahl Bauer', photo: 'board-operations' },
   { key: 'digital', role: 'Head of Digital', name: 'Eric Sjölin' },
+];
+
+// From the partnership brochure 2026/27
+export const MEMBERS = 21;
+export const teams = ['Partnerships', 'Operations', 'Marketing', 'Digital', 'Finance'];
+export const vision = 'A marketing industry that learns from its next generation, not just recruits from it.';
+export const mission = 'We bring CBS students and the marketing industry together around real challenges. Our members work on the problems companies face today, and companies get fresh perspectives from the generation they want to reach.';
+export const values = [
+  { title: 'Practice over theory', text: 'Real briefs, real constraints, real feedback from the people who set them.' },
+  { title: 'Debate over consensus', text: 'Different views on one stage, because that is where good ideas get tested.' },
+  { title: 'Craft in every detail', text: 'Every event is planned and designed by us, with the same care as a real campaign.' },
 ];

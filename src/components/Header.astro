@@ -1,11 +1,12 @@
 ---
 import { base, url, nav, img } from '../data/site';
+import Logo from './Logo.astro';
 const { current = 'home' } = Astro.props as { current?: string };
 const links = nav.filter((l) => l.key !== 'home');
 ---
 <header class="site-header" data-header>
   <a class="logo" href={url()} aria-label="CBS MarketingLab home">
-    <img src={img("logo")} alt="" width="52" height="52" />
+    <Logo size={52} />
   </a>
   <a class="join hand" href={url("join/")}>Join us ↗</a>
   <button class="postit hand" type="button" aria-expanded="false" aria-controls="whiteboard" data-menu-open>
@@ -54,8 +55,8 @@ const links = nav.filter((l) => l.key !== 'home');
   }
   .site-header > * { pointer-events: auto; }
   .site-header.is-hidden { translate: 0 -120%; }
-  .logo img { width: 52px; height: 52px; border-radius: 14px; transition: rotate 0.3s ease, scale 0.3s ease; }
-  .logo:hover img { rotate: -8deg; scale: 1.08; }
+  .logo { display: inline-block; transition: rotate 0.3s ease, scale 0.3s ease; }
+  .logo:hover { rotate: -8deg; scale: 1.08; }
   .join {
     font-size: 26px;
     text-decoration: none;
@@ -104,7 +105,7 @@ const links = nav.filter((l) => l.key !== 'home');
   .whiteboard.is-open li { opacity: 1; translate: 0 0; }
   .whiteboard li:nth-child(even) { padding-left: clamp(20px, 8vw, 120px); }
   .whiteboard li a { position: relative; text-decoration: none; color: #1d3a8a; }
-  .wb-word { font-family: var(--f-hand); font-size: clamp(46px, 8.4vw, 104px); line-height: 1.05; padding-inline: 0.12em; }
+  .wb-word { font-family: var(--f-hand); font-size-adjust: 0.4; line-height: 1.05; font-size: clamp(46px, 8.4vw, 104px); line-height: 1.05; padding-inline: 0.12em; }
   .wb-circle { position: absolute; left: -16%; top: -18%; width: 132%; height: 150%; fill: none; stroke: #c0392b; stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 0.5s ease; pointer-events: none; }
   .whiteboard li a:hover .wb-circle, .whiteboard li a:focus-visible .wb-circle { stroke-dashoffset: 0; }
   .whiteboard li.is-current .wb-circle { stroke-dashoffset: 0; stroke: var(--sage-dk); }

@@ -1,12 +1,18 @@
 ---
 // PARTNERS: mauve, brutalist. Hard borders, offset shadows, a sticker pile you can throw around.
 import Base from '../layouts/Base.astro';
-import { partners, img, EMAIL } from '../data/site';
+import { partners, img, PARTNER_EMAIL, MEMBERS, board } from '../data/site';
+const head = board.find((b) => b.key === 'partnerships')!;
 const spots = [[4, 8], [44, 4], [66, 18], [10, 30], [38, 34], [62, 46], [6, 56], [30, 64], [58, 74], [12, 82], [42, 88]];
 const formats = [
-  { n: 'A', title: 'Host an event', text: 'Talk, dinner or panel. We fill the room with CBS’s most curious marketers.', get: 'Brand love on campus' },
-  { n: 'B', title: 'Hand us a case', text: 'A real brief, a student team, a few weeks. You get fresh eyes, they get the experience.', get: 'New ideas, early talent' },
-  { n: 'C', title: 'Run a workshop', text: 'Teach a skill your team is great at. Hands-on, small group, high energy.', get: 'Your future hires, met early' },
+  { n: 'A', title: 'Case work', tag: 'Insight', text: 'Workshops and case competitions built around a live brief from your brand. Student teams dig in, develop concepts and pitch them back to you.', role: 'set the brief, coach the teams, judge the final pitches' },
+  { n: 'B', title: 'Panel debates', tag: 'Thought leadership', text: 'Moderated debates on the questions the industry is still arguing about, with an audience that is encouraged to push back.', role: 'take a seat on the panel and set the agenda with us' },
+  { n: 'C', title: 'Speaker events', tag: 'Visibility', text: 'One speaker, one story: a campaign, a rebrand or a career, told by the person who lived it. Then open Q&A and networking.', role: 'tell the story behind your work, then meet the room' },
+];
+const packages = [
+  { span: 'One event', name: 'Event partner', line: 'Own one speaker event, debate or case workshop.', items: ['Co-branded event', 'Speaking or panel slot', 'Logo on posters and promotion', 'Event photography'] },
+  { span: 'One semester', name: 'Semester partner', line: 'A case and a stage, across one semester.', items: ['Co-branded event with a speaking slot', 'Your logo on all our materials', 'Partner mention at all our events', 'Event photography'] },
+  { span: 'Full year', name: 'Main partner', line: 'Our headline partner, one per year.', items: ['Everything in Semester partner', 'A flagship event in your name', 'Your logo on all our events and channels', 'First pick of dates and formats'] },
 ];
 const subject = encodeURIComponent('Partnership with MarketingLab');
 ---
@@ -39,19 +45,31 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
       {formats.map((f) => (
         <li>
           <span class="f-n">{f.n}</span>
-          <h3>{f.title}</h3>
-          <p>{f.text} <em>You get: {f.get.toLowerCase()}.</em></p>
+          <h3>{f.title}<small>{f.tag}</small></h3>
+          <p>{f.text} <em>Your role: {f.role}.</em></p>
         </li>
       ))}
     </ol>
     <dl class="numbers">
-      <div><dt>CBS marketers on Instagram</dt><dd>1,049+</dd></div>
+      <div><dt>members, five teams</dt><dd>{MEMBERS}</dd></div>
       <div><dt>brands so far</dt><dd>{partners.length}</dd></div>
       <div><dt>years on campus</dt><dd>{new Date().getFullYear() - 2012}</dd></div>
     </dl>
+    <h3 class="pk-title">Ways to partner</h3>
+    <ul class="packages">
+      {packages.map((k, i) => (
+        <li class={`pk pk${i}`}>
+          <span class="pk-span">{k.span}</span>
+          <strong>{k.name}</strong>
+          <p>{k.line}</p>
+          <ul>{k.items.map((it) => <li>{it}</li>)}</ul>
+        </li>
+      ))}
+    </ul>
+    <p class="fee">Every partnership includes a fee that depends on the format and is always open to discussion. Tell us what you want to achieve, and we come back with a concept built around it.</p>
     <div class="cta">
-      <a class="btn big-btn" href={`mailto:${EMAIL}?subject=${subject}`}>Partner with us ↗</a>
-      <p class="hand">we reply faster than your agency</p>
+      <a class="btn big-btn" href={`mailto:${PARTNER_EMAIL}?subject=${subject}`}>Let's talk ↗</a>
+      <p class="contact-line"><strong>{head.name}</strong>, {head.role}<br /><a href={`mailto:${PARTNER_EMAIL}`}>{PARTNER_EMAIL}</a></p>
     </div>
    </div>
   </section>
@@ -88,6 +106,21 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
   .numbers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 50px 0 0; }
   .numbers dt { font-size: 16px; }
   .numbers dd { margin: 6px 0 0; font-family: var(--f-display); font-size: clamp(48px, 6vw, 96px); line-height: 0.9; }
+  .formats small { display: block; font-family: var(--f-hand); font-size-adjust: 0.4; line-height: 1.05; text-transform: none; font-size: 30px; line-height: 1; color: var(--mauve); margin-top: 6px; }
+  .pk-title { font-size: clamp(44px, 5vw, 80px); margin-top: clamp(70px, 9vw, 120px); }
+  .packages { list-style: none; padding: 0; margin: 30px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); align-items: stretch; }
+  .pk { border: 3px solid var(--ink); padding: 24px 24px 28px; display: grid; gap: 10px; align-content: start; box-shadow: 8px 8px 0 var(--ink); }
+  .pk0 { background: var(--paper); }
+  .pk1 { background: var(--mauve-lt); }
+  .pk2 { background: var(--ink); color: var(--paper); box-shadow: 8px 8px 0 var(--sage); }
+  .pk-span { font-family: var(--f-hand); font-size-adjust: 0.4; line-height: 1.05; font-size: 30px; line-height: 1; color: var(--mauve); }
+  .pk2 .pk-span { color: var(--sage); }
+  .pk strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(34px, 3.2vw, 50px); line-height: 0.95; }
+  .pk ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: 16px; }
+  .fee { max-width: 62ch; margin-top: 36px; font-size: 17px; }
+  .contact-line { font-size: 16px; line-height: 1.5; }
+  .contact-line a { text-underline-offset: 4px; }
+  @media (max-width: 900px) { .packages { grid-template-columns: 1fr; } }
   .cta { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 56px; }
   .big-btn { font-size: 20px; padding: 20px 30px; box-shadow: 8px 8px 0 var(--mauve); }
   .big-btn:hover { box-shadow: 12px 12px 0 var(--mauve); }

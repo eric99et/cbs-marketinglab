@@ -1,6 +1,7 @@
 ---
 // CONTACT: a postcard on the desk. Stamps for socials, a message you "post".
 import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
 import { img, socials, EMAIL } from '../data/site';
 const year = new Date().getFullYear();
 ---
@@ -23,7 +24,7 @@ const year = new Date().getFullYear();
         </form>
       </div>
       <div class="pc-right">
-        <div class="stamp-box"><img src={img('logo')} alt="" width="110" height="110" /><span class="mono">DKK 0,00</span></div>
+        <div class="stamp-box"><Logo size={110} /><span class="mono">DKK 0,00</span></div>
         <div class="postmark" aria-hidden="true"><span class="pm-box mono">Frederiksberg<br />since 2012</span><svg viewBox="0 0 160 60"><path d="M0 10 Q 10 2 20 10 T 40 10 T 60 10 T 80 10 T 100 10 T 120 10 T 140 10 T 160 10" /><path d="M0 30 Q 10 22 20 30 T 40 30 T 60 30 T 80 30 T 100 30 T 120 30 T 140 30 T 160 30" /><path d="M0 50 Q 10 42 20 50 T 40 50 T 60 50 T 80 50 T 100 50 T 120 50 T 140 50 T 160 50" /></svg></div>
         <address class="addr">
           <span>CBS MarketingLab</span>
@@ -67,17 +68,16 @@ const year = new Date().getFullYear();
   .pc-left { padding-right: clamp(18px, 3vw, 40px); display: grid; gap: 14px; align-content: start; }
   .pc-label { font-size: 26px; color: var(--sage-dk); }
   .msg { display: grid; gap: 14px; }
-  textarea, input { width: 100%; font-family: var(--f-hand); font-size: 26px; line-height: 34px; color: #1d3a8a; background: repeating-linear-gradient(transparent 0 33px, rgba(32, 32, 32, 0.2) 33px 34px); border: 0; padding: 0 4px; resize: none; }
+  textarea, input { width: 100%; font-family: var(--f-body); font-size: 19px; line-height: 34px; color: #1d3a8a; background: repeating-linear-gradient(transparent 0 33px, rgba(32, 32, 32, 0.2) 33px 34px); border: 0; padding: 0 4px; resize: none; }
   input { height: 40px; }
   textarea:focus, input:focus { outline: none; background-color: rgba(144, 188, 165, 0.15); }
   .msg .btn { justify-self: start; }
   .pc-right { position: relative; padding-left: clamp(18px, 3vw, 40px); display: grid; align-content: space-between; min-height: 340px; }
   .stamp-box { justify-self: end; display: grid; justify-items: center; gap: 4px; padding: 8px; background: #fff; border: 3px dotted var(--mauve); rotate: 4deg; font-size: 10px; }
-  .stamp-box img { border-radius: 12px; }
   .postmark { position: absolute; right: 70px; top: 80px; display: flex; align-items: center; gap: 6px; color: rgba(164, 136, 136, 0.95); rotate: -8deg; }
   .pm-box { border: 2px solid currentColor; padding: 6px 10px; font-size: 10px; line-height: 1.3; text-align: center; }
   .postmark svg { width: 120px; height: 46px; fill: none; stroke: currentColor; stroke-width: 2; }
-  .addr { font-style: normal; display: grid; font-family: var(--f-hand); font-size: clamp(22px, 2vw, 30px); line-height: 1.5; }
+  .addr { font-style: normal; display: grid; font-family: var(--f-hand); font-size-adjust: 0.4; line-height: 1.05; font-size: clamp(22px, 2vw, 30px); line-height: 1.5; }
   .addr span { border-bottom: 1px solid rgba(32, 32, 32, 0.3); }
   .addr a { color: #1d3a8a; font-size: 0.8em; word-break: break-all; }
   .stamps { display: grid; gap: 22px; }

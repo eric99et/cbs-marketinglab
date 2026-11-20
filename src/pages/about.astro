@@ -1,19 +1,21 @@
 ---
 // ABOUT: sage, editorial Bauhaus. Big shapes, strict grid, a timeline.
 import Base from '../layouts/Base.astro';
-import { url, img, partners, board } from '../data/site';
+import { url, img, partners, board, MEMBERS, teams as teamNames, vision, mission, values } from '../data/site';
 const timeline = [
   { year: '2012', text: 'A few CBS students decide marketing class needs a lab.', note: 'it begins' },
   { year: '2018', text: '"The Agency": we simulate a whole media agency. For a day.', note: 'chaos (good)' },
   { year: '2021', text: 'Nielsen x Arla case night, a podcast, and 35 labbers strong.', note: 'growing up' },
   { year: '2026', text: 'Reimagined & rebranded. Events with Bold Scandinavia at Station.', note: 'hi, it’s us now' },
 ];
-const teams = [
-  { name: 'Events', line: 'Turns ideas into nights people talk about.' },
-  { name: 'Partnerships', line: 'Brings the brands, agencies and briefs.' },
-  { name: 'Marketing', line: 'Makes the posters you stop scrolling for.' },
-  { name: 'Digital', line: 'Builds the site you’re on right now.' },
-];
+const teamLines: Record<string, string> = {
+  Partnerships: 'Brings the brands, agencies and briefs.',
+  Operations: 'Makes every event actually happen.',
+  Marketing: 'Makes the posters you stop scrolling for.',
+  Digital: 'Builds the site you’re on right now.',
+  Finance: 'Keeps the lab running (and the pizza paid for).',
+};
+const teams = teamNames.map((name) => ({ name, line: teamLines[name] ?? '' }));
 ---
 <Base page="about" theme="sage" title="Who we are | CBS MarketingLab">
   <section class="wrap page-top intro">
@@ -22,8 +24,8 @@ const teams = [
       <span class="line" data-split>lab<span class="dot">.</span></span>
     </h1>
     <div class="intro-grid">
-      <p class="statement">Since 2012, turning CBS students into people brands actually call back.</p>
-      <p class="lede">We build a bridge between students and the industry. Every week our labbers run events, courses and consulting projects with some of Copenhagen's sharpest brands, agencies and marketing departments.</p>
+      <p class="statement">Marketing is taught through textbook cases. It is learned by working on real ones.</p>
+      <p class="lede">{mission}</p>
     </div>
     <div class="shapes" aria-hidden="true">
       <span class="sh circle" data-shape></span>
@@ -35,9 +37,13 @@ const teams = [
   <section class="wrap what" aria-labelledby="what-title">
     <h2 id="what-title" class="sec-title">What we actually do</h2>
     <ul class="what-list">
-      <li><strong>Events</strong><span>Talks, dinners and workshops with the people behind the brands.</span></li>
-      <li><strong>Consulting</strong><span>Student teams on real company cases, with real deadlines.</span></li>
-      <li><strong>Courses</strong><span>Mini marketing courses CBS doesn't teach (yet).</span></li>
+      <li><strong>Case work</strong><span>Workshops and case competitions on a live brief. Student teams pitch their ideas back to the brand.</span></li>
+      <li><strong>Panel debates</strong><span>Several perspectives on one stage, and an audience that is encouraged to push back.</span></li>
+      <li><strong>Speaker events</strong><span>One speaker, one story, then open Q&amp;A and networking.</span></li>
+    </ul>
+    <p class="vision"><span class="hand">our vision</span>{vision}</p>
+    <ul class="values">
+      {values.map((v) => <li><strong>{v.title}</strong><span>{v.text}</span></li>)}
     </ul>
     <div class="snaps" aria-hidden="true">
       <figure class="snap s-a"><img src={img('stock-talk')} alt="" loading="lazy" /></figure>
@@ -65,7 +71,7 @@ const teams = [
     <h2 id="r-title" class="sec-title">Receipts.</h2>
     <dl class="stats">
       <div><dt>years of lab</dt><dd><span data-count="14">0</span></dd></div>
-      <div><dt>followers on IG</dt><dd><span data-count="1049">0</span>+</dd></div>
+      <div><dt>members, five teams</dt><dd><span data-count={MEMBERS}>0</span></dd></div>
       <div><dt>brands we've worked with</dt><dd><span data-count={partners.length}>0</span>+</dd></div>
       <div><dt>boring events</dt><dd>0</dd></div>
     </dl>
@@ -90,8 +96,8 @@ const teams = [
     <ul class="board">
       {board.map((b, i) => (
         <li class={`pol b${i % 4}`}>
-          <span class="face" aria-hidden="true">{b.name ? b.name.split(' ').map((w) => w[0]).join('') : '?'}</span>
-          <strong>{b.name ?? 'Name coming soon'}</strong>
+          {b.photo ? <img class="face" src={img(b.photo)} alt={b.name} loading="lazy" /> : <span class="face" aria-hidden="true">{b.name.split(' ').map((w) => w[0]).join('')}</span>}
+          <strong>{b.name}</strong>
           <span>{b.role}</span>
           {b.linkedin && <a href={b.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>}
         </li>
@@ -117,6 +123,12 @@ const teams = [
   .what-list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 2px solid var(--ink); }
   .what-list strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(44px, 6vw, 96px); line-height: 0.9; }
   .what-list span { font-size: clamp(18px, 1.6vw, 22px); }
+  .vision { display: grid; gap: 4px; font-family: var(--f-display); text-transform: uppercase; font-size: clamp(30px, 3.6vw, 56px); line-height: 1; max-width: 22ch; margin-top: clamp(60px, 8vw, 100px); }
+  .vision .hand { text-transform: none; font-size: 40px; color: var(--paper); }
+  .values { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .values li { border-top: 2px solid var(--ink); padding-top: 14px; display: grid; gap: 8px; }
+  .values strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(26px, 2.4vw, 36px); line-height: 1; }
+  @media (max-width: 800px) { .values { grid-template-columns: 1fr; } }
   .snaps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); margin-top: clamp(50px, 7vw, 90px); }
   .snap { margin: 0; background: #fff; padding: 10px 10px 30px; box-shadow: 0 14px 30px rgba(32, 32, 32, 0.18); }
   .snap img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; filter: grayscale(1) contrast(1.05); transition: filter 0.5s ease; }
@@ -149,8 +161,8 @@ const teams = [
   .board .pol { background: #fff; padding: 10px 10px 18px; display: grid; gap: 4px; box-shadow: 0 12px 26px rgba(32, 32, 32, 0.16); transition: rotate 0.25s ease, translate 0.25s ease; }
   .board .pol:hover { rotate: 0deg; translate: 0 -6px; }
   .b0 { rotate: -2deg; } .b1 { rotate: 1.5deg; } .b2 { rotate: -1deg; } .b3 { rotate: 2deg; }
-  .face { aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--paper-2); font-family: var(--f-display); font-size: clamp(44px, 5vw, 72px); color: var(--sage-dk); margin-bottom: 8px; }
-  .board strong { font-family: var(--f-hand); font-weight: 600; font-size: 24px; line-height: 1.1; }
+  .face { width: 100%; object-fit: cover; aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--paper-2); font-family: var(--f-display); font-size: clamp(44px, 5vw, 72px); color: var(--sage-dk); margin-bottom: 8px; }
+  .board strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: 22px; line-height: 1; }
   .board span:not(.face) { font-size: 15px; color: var(--ink-soft); }
   .board a { font-size: 15px; font-weight: 600; }
 

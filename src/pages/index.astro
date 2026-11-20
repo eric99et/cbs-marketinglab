@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { img, url, partners, past, upcoming, socials, gcal } from '../data/site';
+import { img, url, partners, past, upcoming, socials, gcal, MEMBERS } from '../data/site';
 const next = upcoming[0];
 const latest = past[0];
 ---
@@ -12,7 +12,7 @@ const latest = past[0];
     <img class="hero-crew" src={img('cutout-crew')} alt="" data-crew />
     <div class="hero-card tape" data-drop>
       <p class="card-title" aria-hidden="true">in the <span>making.</span></p>
-      <p class="hero-lede">Students at Copenhagen Business School meeting the brands and agencies shaping marketing.</p>
+      <p class="hero-lede">Case work, panel debates and speaker events at Copenhagen Business School, with the people behind today's brands.</p>
       <div class="hero-cta">
         <a class="btn" href={url('events/')}>See our events</a>
         <a class="btn ghost" href={url('partners/')}>For companies</a>
@@ -38,7 +38,7 @@ const latest = past[0];
   <section class="proof wrap" aria-label="MarketingLab in numbers">
     <dl class="nums">
       <div><dd><span data-count="14">0</span></dd><dt>years on campus</dt></div>
-      <div><dd><span data-count="1049">0</span>+</dd><dt>marketers following along</dt></div>
+      <div><dd><span data-count={MEMBERS}>0</span></dd><dt>members, five teams</dt></div>
       <div><dd><span data-count={partners.length}>0</span></dd><dt>brands we've worked with</dt></div>
     </dl>
     <div class="next tape">

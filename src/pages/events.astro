@@ -67,7 +67,7 @@ import { img, upcoming, past, socials, gcal } from '../data/site';
   body.is-loaded .strike { --s: 1; }
   .fix { font-size: clamp(40px, 6vw, 90px); color: #e0503f; rotate: -6deg; margin: -0.3em 0 0 clamp(120px, 30vw, 520px); opacity: var(--f, 0); transition: opacity 0.4s ease 1.4s; }
   body.is-loaded .fix { --f: 1; }
-  .head .lede { margin-top: 20px; color: rgba(252, 248, 240, 0.8); }
+  .head .lede { margin-top: clamp(50px, 6vw, 90px); color: rgba(252, 248, 240, 0.8); }
 
   .next { padding-block: clamp(50px, 7vw, 90px); }
   .ticket { display: grid; grid-template-columns: 90px 1fr; max-width: 760px; background: var(--sage); color: var(--ink); rotate: -2deg; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }

@@ -1,0 +1,10 @@
+---
+import svg from '../assets/logo.svg?raw';
+const { size = 52, cls = '' } = Astro.props as { size?: number; cls?: string };
+---
+<span class={`ml-logo ${cls}`} style={`--s:${size}px`} set:html={svg} />
+
+<style>
+  .ml-logo { display: inline-grid; place-items: center; width: var(--s); height: var(--s); background: var(--sage); color: var(--paper); padding: calc(var(--s) * 0.16); }
+  .ml-logo :global(svg) { width: 100%; height: auto; display: block; }
+</style>

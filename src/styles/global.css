@@ -1,27 +1,30 @@
-@import '@fontsource/anton/400.css';
-@import '@fontsource/courier-prime/400.css';
-@import '@fontsource/courier-prime/700.css';
-@import '@fontsource/caveat/600.css';
-@import '@fontsource-variable/instrument-sans';
+@import '@fontsource/squada-one/400.css';
+@import '@fontsource/space-mono/400.css';
+@import '@fontsource/space-mono/700.css';
+@import '@fontsource/allison/400.css';
 
-/* Brand tokens (provisional until the board confirms the official palette) */
+/* Brand tokens from CBS_Marketing_Lab_Brand_Guidelines.pdf (Nov 2026) */
 :root {
-  --sage: #90bca5;
-  --sage-lt: #a4c0ac;
-  --sage-dk: #4f7a64;
-  --paper: #fcf8f0;
-  --paper-2: #f3ede0;
-  --ink: #202020;
-  --ink-soft: #4a4744;
-  --mauve: #a48888;
-  --mauve-lt: #d9c6c2;
-  --postit: #f4e27a;
+  --sage: #91bda6;      /* Seafoam Green */
+  --sage-lt: #c2dace;
+  --sage-xl: #eef5f1;
+  --sage-dk: #4f7a64;   /* derived, for small text on cream (not in guidelines) */
+  --paper: #fffcf4;     /* Cream White */
+  --paper-2: #f0e8e8;
+  --ink: #000000;       /* Pure Black */
+  --ink-soft: #3d3a38;
+  --mauve: #9e6b6a;     /* Mauve */
+  --mauve-lt: #ddcbca;
+  --moss: #999b24;      /* secondary: Moss Green */
+  --aubergine: #50054d; /* secondary: Aubergine */
+  --postit: #e2e39a;    /* light moss, for notes */
   --tape: rgba(232, 222, 196, 0.85);
 
-  --f-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
-  --f-body: 'Instrument Sans Variable', 'Helvetica Neue', Arial, sans-serif;
-  --f-mono: 'Courier Prime', 'Courier New', ui-monospace, monospace;
-  --f-hand: 'Caveat', 'Segoe Print', cursive;
+  /* Squada One = display, Helvetica World = body, Anca Coder -> Space Mono stand-in, The Artist Script -> Allison stand-in */
+  --f-display: 'Squada One', 'Arial Narrow', sans-serif;
+  --f-body: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-mono: 'Space Mono', ui-monospace, monospace;
+  --f-hand: 'Allison', 'Segoe Script', cursive;
 
   --bg: var(--paper);
   --fg: var(--ink);
@@ -30,7 +33,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 body {
   margin: 0;
   background: var(--bg);
@@ -61,13 +64,13 @@ h1, h2, h3 {
   font-weight: 400;
   text-transform: uppercase;
   line-height: 0.9;
-  letter-spacing: 0.005em;
+  letter-spacing: 0.01em;
   margin: 0;
 }
 :focus-visible { outline: 2px dashed currentColor; outline-offset: 4px; }
 
 .mono { font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
-.hand { font-family: var(--f-hand); font-weight: 600; }
+.hand { font-family: var(--f-hand); font-size-adjust: 0.4; line-height: 1.05; font-weight: 400; text-transform: none; letter-spacing: 0; }
 .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding-inline: var(--gutter); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -143,4 +146,4 @@ body { background-color: var(--bg); color: var(--fg); }
 .page-title { font-size: clamp(72px, 15vw, 240px); line-height: 0.84; }
 .page-title .line { display: block; overflow: hidden; }
 
-.site-header .logo img { box-shadow: 0 0 0 2px var(--ink); }
+.site-header .logo .ml-logo { box-shadow: 0 0 0 2px var(--ink); }
