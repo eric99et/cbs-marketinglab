@@ -124,7 +124,7 @@ const stripe = ['var(--sage-dk)', 'var(--mauve)', 'var(--moss)', 'var(--aubergin
   splitLines();
   if (!reduce) {
     gsap.from('[data-col] .pic', { clipPath: 'inset(100% 0 0 0)', duration: 1.1, stagger: 0.1, delay: 0.35, ease: 'power4.out' });
-    gsap.to('.col:nth-child(even)', { y: -50, ease: 'none', scrollTrigger: { trigger: '.cols', start: 'top 80%', end: 'bottom top', scrub: true } });
+    gsap.to('.hero .col:nth-child(even)', { y: -50, ease: 'none', scrollTrigger: { trigger: '.hero .cols', start: 'top 80%', end: 'bottom top', scrub: true } });
     gsap.from('[data-stripe]', { scaleY: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', scrollTrigger: { trigger: '.stripes', start: 'top 80%' } });
   }
   allBasics();
