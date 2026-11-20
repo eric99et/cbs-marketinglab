@@ -138,6 +138,7 @@ body.theme-paper { --bg: var(--paper); --fg: var(--ink); }
 body.theme-sage { --bg: var(--sage); --fg: var(--ink); }
 body.theme-mauve { --bg: var(--mauve); --fg: var(--ink); }
 body.theme-ink { --bg: var(--ink); --fg: var(--paper); }
+body.theme-mist { --bg: var(--sage-xl); --fg: var(--ink); }
 body.theme-board { --bg: #f7f7f2; --fg: var(--ink); background-image: radial-gradient(rgba(32, 32, 32, 0.06) 1px, transparent 1px); background-size: 22px 22px; }
 body { background-color: var(--bg); color: var(--fg); }
 

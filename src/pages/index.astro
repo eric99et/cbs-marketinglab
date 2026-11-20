@@ -37,7 +37,7 @@ const latest = past[0];
   <!-- PROOF: numbers + next event -->
   <section class="proof wrap" aria-label="MarketingLab in numbers">
     <dl class="nums">
-      <div><dd><span data-count="14">0</span></dd><dt>years on campus</dt></div>
+      <div><dd>3</dd><dt>event formats: cases, debates, talks</dt></div>
       <div><dd><span data-count={MEMBERS}>0</span></dd><dt>members, five teams</dt></div>
       <div><dd><span data-count={partners.length}>0</span></dd><dt>brands we've worked with</dt></div>
     </dl>
@@ -65,25 +65,26 @@ const latest = past[0];
     <p class="hand doors-note">(they're all good doors)</p>
     <div class="door-grid">
       <a class="door door-about" href={url('about/')}>
-                <strong>Since 2012.</strong>
-        <span class="door-line">Turning CBS students into people brands call back.</span>
-        <span class="door-go">read the story →</span>
+        <strong>Who we are</strong>
+        <span class="door-line">21 CBS students in five teams. Our vision, our values and the board.</span>
+        <span class="door-go">meet the lab →</span>
       </a>
       <a class="door door-events" href={url('events/')}>
-        <span class="hand door-ticket">admit one ✶</span>
-        <strong>Things you'll regret skipping</strong>
+        <strong>Events</strong>
+        <span class="door-line">Case work, panel debates and speaker events. What's next and what we've done.</span>
         <img src={img(latest.photo)} alt="" loading="lazy" />
-        <span class="door-go">see the highlight reel →</span>
+        <span class="door-go">see all events →</span>
       </a>
       <a class="door door-partners" href={url('partners/')}>
-                <strong>Got a brief?</strong>
+        <strong>Partners</strong>
+        <span class="door-line">For companies: the brands we've worked with and the ways to partner.</span>
         <span class="stickers" aria-hidden="true"><i>Bold</i><i>L'Oréal</i><i>DEPT</i><i>+8</i></span>
-        <span class="door-go">meet the brands →</span>
+        <span class="door-go">partner with us →</span>
       </a>
       <a class="door door-join" href={url('join/')}>
-        <span class="hand door-hand">why join?</span>
+        <strong>Join us</strong>
+        <span class="door-line">For students: how it works, the application and the FAQ.</span>
         <span class="door-list hand">☑ real cases<br />☑ new friends<br />☐ your name here</span>
-        <strong>Your CV called.</strong>
         <span class="door-go">apply →</span>
       </a>
     </div>
@@ -149,12 +150,13 @@ const latest = past[0];
   .doors-note { font-size: 30px; color: var(--sage-dk); margin: 4px 0 50px; rotate: -2deg; }
   .door-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); align-items: start; }
   .door { position: relative; display: grid; gap: 14px; min-height: 380px; padding: 24px; text-decoration: none; transition: rotate 0.3s ease, translate 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 12px 26px rgba(32, 32, 32, 0.14); align-content: start; }
-  .door strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(32px, 3vw, 46px); line-height: 0.92; }
-  .door-go { margin-top: auto; align-self: end; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .door strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(40px, 3.6vw, 58px); line-height: 0.92; }
+  .door-line { font-size: 16px; line-height: 1.45; }
+  .door-events .door-line { color: rgba(255, 252, 244, 0.85); }
+  .door-go { margin-top: auto; align-self: end; font-family: var(--f-display); font-size: 22px; text-transform: uppercase; letter-spacing: .02em; border-bottom: 2px solid currentColor; line-height: 1.1; }
   .door-ticket { font-size: 26px; color: var(--sage); }
   .door:hover { rotate: 0deg !important; translate: 0 -10px; box-shadow: 0 22px 40px rgba(32, 32, 32, 0.22); }
   .door-about { background: var(--sage); rotate: -2deg; }
-  .door-about strong { font-size: clamp(48px, 5vw, 76px); }
   .door-events { background: var(--ink); color: var(--paper); rotate: 2deg; border: 2px dashed var(--sage); margin-top: 40px; }
   .door-events img { aspect-ratio: 4 / 3; object-fit: cover; filter: grayscale(1); transition: filter 0.5s ease; }
   .door-events:hover img { filter: none; }

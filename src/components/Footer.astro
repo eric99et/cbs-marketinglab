@@ -1,43 +1,68 @@
 ---
-import { url, img, EMAIL, PARTNER_EMAIL, socials } from '../data/site';
+import { url, EMAIL, PARTNER_EMAIL, socials, DOMAIN } from '../data/site';
 import Logo from './Logo.astro';
 const year = new Date().getFullYear();
+const subject = encodeURIComponent('Partnership with MarketingLab');
 ---
 <footer class="site-footer">
-  <div class="wrap row">
+  <div class="wrap top">
     <a class="cta" href={url('contact/')}>
-      <span class="big-word">Say hi</span>
-      <span class="hand">we don't bite (much) ↗</span>
+      <span class="big-word">Say hi <span class="arrow" aria-hidden="true">↗</span></span>
+      <span class="hand">we don't bite (much)</span>
     </a>
-    <div class="meta">
-      <p class="paths"><a href={url('join/')}>Students: join the lab ↗</a><a href={`mailto:${PARTNER_EMAIL}?subject=${encodeURIComponent('Partnership with MarketingLab')}`}>Companies: partner with us ↗</a><a href={url('contact/#news')}>Newsletter ↗</a></p>
-      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-      <p>Solbjergvej 3, 3rd floor, 2000 Frederiksberg</p>
-      <ul class="socials">
-        {socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener">{s.name} ↗</a></li>)}
-      </ul>
-    </div>
+    <nav class="cols" aria-label="Footer">
+      <div class="col">
+        <h2>Students</h2>
+        <a href={url('join/')}>Join the lab</a>
+        <a href={url('events/')}>Events</a>
+        <a href={url('join/#faq')}>FAQ</a>
+      </div>
+      <div class="col">
+        <h2>Companies</h2>
+        <a href={url('partners/')}>Ways to partner</a>
+        <a href={`mailto:${PARTNER_EMAIL}?subject=${subject}`}>Partnerships email</a>
+      </div>
+      <div class="col">
+        <h2>Follow</h2>
+        {socials.map((s) => <a href={s.href} target="_blank" rel="noopener">{s.name} ↗</a>)}
+        <a href={url('contact/#news')}>Newsletter</a>
+      </div>
+    </nav>
   </div>
+
+  <p class="giant" aria-hidden="true">Marketing Lab</p>
+
   <div class="wrap bottom">
-    <Logo size={36} />
-    <span>Made with too much coffee at Solbjergvej 3 · © {year} CBS MarketingLab</span>
+    <Logo size={34} />
+    <span>Solbjergvej 3, 3rd floor, 2000 Frederiksberg</span>
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    <span>{DOMAIN}</span>
+    <span class="copy">© {year} CBS Marketing Lab</span>
   </div>
 </footer>
 
 <style>
-  .site-footer { background: var(--ink); color: var(--paper); padding-block: clamp(60px, 9vw, 110px) 28px; position: relative; z-index: 1; }
-  .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 40px; }
-  .cta { text-decoration: none; display: grid; }
-  .big-word { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(64px, 11vw, 170px); line-height: 0.85; transition: color 0.2s ease; }
+  .site-footer { background: var(--ink); color: var(--paper); padding-top: clamp(70px, 9vw, 120px); position: relative; z-index: 1; overflow: hidden; }
+  .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(40px, 6vw, 100px); align-items: start; }
+  .cta { text-decoration: none; display: grid; justify-items: start; }
+  .big-word { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(72px, 10vw, 160px); line-height: 0.85; transition: color 0.2s ease; }
+  .arrow { display: inline-block; font-family: var(--f-body); font-size: 0.5em; vertical-align: top; color: var(--sage); transition: translate 0.25s ease; }
   .cta:hover .big-word { color: var(--sage); }
-  .cta .hand { font-size: 28px; color: var(--sage); }
-  .meta { display: grid; gap: 8px; font-size: 16px; }
-  .meta a { text-decoration-color: var(--sage); text-underline-offset: 4px; }
-  .paths { display: grid; gap: 4px; margin-bottom: 10px; font-family: var(--f-display); text-transform: uppercase; font-size: clamp(22px, 2vw, 28px); line-height: 1.1; }
-  .paths a { text-decoration: none; }
-  .paths a:hover { color: var(--sage); }
-  .socials { list-style: none; display: flex; gap: 18px; padding: 0; margin: 6px 0 0; }
-  .socials a { text-decoration: none; font-weight: 600; }
-  .socials a:hover { color: var(--sage); }
-  .bottom { display: flex; align-items: center; gap: 14px; margin-top: 60px; padding-top: 22px; border-top: 1px dashed rgba(252, 248, 240, 0.3); font-size: 13px; color: rgba(252, 248, 240, 0.7); }
+  .cta:hover .arrow { translate: 6px -6px; }
+  .cta .hand { font-size: 40px; color: var(--sage); rotate: -3deg; margin-top: 4px; }
+  .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding-top: 12px; }
+  .col { display: grid; gap: 10px; align-content: start; border-top: 2px solid var(--sage); padding-top: 16px; }
+  .col h2 { font-size: 28px; color: var(--sage); margin-bottom: 4px; }
+  .col a { text-decoration: none; font-size: 17px; width: fit-content; background: linear-gradient(var(--sage), var(--sage)) 0 100% / 0 2px no-repeat; transition: background-size 0.25s ease; }
+  .col a:hover { background-size: 100% 2px; }
+  .giant { margin: clamp(60px, 8vw, 110px) 0 0; font-family: var(--f-display); text-transform: uppercase; font-size: 16.6vw; line-height: 0.78; letter-spacing: -0.01em; white-space: nowrap; text-align: center; color: var(--sage); }
+  .bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 26px; padding-block: 22px 26px; border-top: 1px solid rgba(255, 252, 244, 0.25); font-size: 14px; color: rgba(255, 252, 244, 0.75); }
+  .bottom a { color: inherit; text-underline-offset: 3px; }
+  .bottom .copy { margin-left: auto; }
+  @media (max-width: 900px) {
+    .top { grid-template-columns: 1fr; }
+    .cols { grid-template-columns: 1fr 1fr; }
+    .bottom .copy { margin-left: 0; }
+  }
+  @media (max-width: 480px) { .cols { grid-template-columns: 1fr; } }
 </style>

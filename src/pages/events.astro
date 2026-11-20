@@ -5,7 +5,7 @@ import { img, upcoming, past, socials, gcal } from '../data/site';
 
 // "Add to calendar" links for upcoming events (date as YYYY-MM-DD, time HH:MM)
 ---
-<Base page="events" theme="ink" title="Events | CBS MarketingLab">
+<Base page="events" theme="mist" title="Events | CBS MarketingLab">
   <section class="wrap page-top head">
     <h1 class="page-title">
       <span class="line" data-split>Things you'll</span>
@@ -62,26 +62,26 @@ import { img, upcoming, past, socials, gcal } from '../data/site';
 
 <style>
   .head { position: relative; }
-  .strike { position: relative; color: var(--sage); }
+  .strike { position: relative; color: var(--mauve); }
   .strike::after { content: ''; position: absolute; left: -2%; right: -2%; top: 50%; height: 0.08em; background: #e0503f; rotate: -4deg; transform-origin: left; scale: var(--s, 0) 1; transition: scale 0.6s ease 0.9s; }
   body.is-loaded .strike { --s: 1; }
   .fix { font-size: clamp(40px, 6vw, 90px); color: #e0503f; rotate: -6deg; margin: -0.3em 0 0 clamp(120px, 30vw, 520px); opacity: var(--f, 0); transition: opacity 0.4s ease 1.4s; }
   body.is-loaded .fix { --f: 1; }
-  .head .lede { margin-top: clamp(50px, 6vw, 90px); color: rgba(252, 248, 240, 0.8); }
+  .head .lede { margin-top: clamp(50px, 6vw, 90px); color: var(--ink-soft); }
 
   .next { padding-block: clamp(50px, 7vw, 90px); }
-  .ticket { display: grid; grid-template-columns: 90px 1fr; max-width: 760px; background: var(--sage); color: var(--ink); rotate: -2deg; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+  .ticket { display: grid; grid-template-columns: 90px 1fr; max-width: 760px; background: var(--mauve-lt); color: var(--ink); rotate: -2deg; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16); }
   .stub { display: grid; place-content: center; gap: 10px; text-align: center; border-right: 3px dashed var(--ink); writing-mode: vertical-rl; rotate: 180deg; font-size: 16px; letter-spacing: 0.3em; }
   .ticket-body { padding: 30px 34px 34px; display: grid; gap: 12px; justify-items: start; }
   .ticket h2 { font-size: clamp(48px, 6vw, 88px); }
   .ticket .hand { font-size: 28px; }
 
   .wall-pin { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 60px; overflow: hidden; }
-  .wall-title { font-size: clamp(40px, 5vw, 72px); color: var(--sage); display: flex; gap: 20px; align-items: baseline; }
-  .wall-title .hand { color: var(--paper); font-size: 0.5em; text-transform: none; }
+  .wall-title { font-size: clamp(40px, 5vw, 72px); color: var(--ink); display: flex; gap: 20px; align-items: baseline; }
+  .wall-title .hand { color: var(--mauve); font-size: 0.5em; text-transform: none; }
   .next-up { font-size: 26px; }
   .track { display: flex; gap: clamp(28px, 3vw, 48px); align-items: center; padding: 50px var(--gutter) 30px; width: max-content; }
-  .poster { width: clamp(270px, 26vw, 370px); padding: 14px 14px 22px; background: var(--paper); color: var(--ink); rotate: var(--r); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); flex: none; transition: rotate 0.3s ease, translate 0.3s ease; }
+  .poster { width: clamp(270px, 26vw, 370px); padding: 14px 14px 22px; background: var(--paper); color: var(--ink); rotate: var(--r); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16); flex: none; transition: rotate 0.3s ease, translate 0.3s ease; }
   .poster:hover { rotate: 0deg; translate: 0 -8px; }
   .poster.tone-sage { background: var(--sage-lt); }
   .poster.tone-mauve { background: var(--mauve-lt); }
@@ -92,8 +92,8 @@ import { img, upcoming, past, socials, gcal } from '../data/site';
   .poster h3 { font-size: clamp(26px, 2.4vw, 34px); margin-top: 6px; }
   .poster-blurb { font-size: 15px; margin-top: 8px; color: var(--ink-soft); }
   .poster-with { margin-top: 10px; font-size: 14px; color: var(--ink-soft); }
-  .end { flex: none; width: 260px; font-size: 32px; color: var(--sage); }
-  .footnote { padding-bottom: 60px; font-size: 14px; color: rgba(252, 248, 240, 0.55); }
+  .end { flex: none; width: 260px; font-size: 40px; color: var(--mauve); }
+  .footnote { padding-bottom: 60px; font-size: 14px; color: var(--ink-soft); }
   @media (max-width: 900px) {
     .wall-pin { min-height: 0; }
     .track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 40px; }

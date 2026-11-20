@@ -5,6 +5,10 @@ export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 export const img = (n: string) => `${base}/img/${n}.webp`;
 export const url = (p = '') => `${base}/${p}`;
 
+// Upcoming domain. Used for canonical/og:url and shown in the footer.
+export const DOMAIN = 'cbsmarketinglab.dk';
+export const SITE_URL = `https://${DOMAIN}`;
+
 export const EMAIL = 'general.marketinglab@gmail.com';
 export const PARTNER_EMAIL = 'marketinglab.partnerships@gmail.com';
 
@@ -41,7 +45,7 @@ export const faq = [
 
 export const nav = [
   { href: url(''), label: 'start', note: 'back to the top', key: 'home' },
-  { href: url('about/'), label: 'who we are', note: 'since 2012', key: 'about' },
+  { href: url('about/'), label: 'who we are', note: 'the people & the plan', key: 'about' },
   { href: url('events/'), label: 'events', note: 'free pizza (probably)', key: 'events' },
   { href: url('partners/'), label: 'partners', note: 'got a brief?', key: 'partners' },
   { href: url('join/'), label: 'join us', note: 'your CV called', key: 'join' },
