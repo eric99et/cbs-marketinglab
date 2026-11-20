@@ -105,7 +105,7 @@ const links = nav.filter((l) => l.key !== 'home');
   .whiteboard li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; opacity: 0; translate: -30px 0; transition: opacity 0.4s ease, translate 0.4s ease; transition-delay: calc(0.25s + var(--i) * 0.07s); }
   .whiteboard.is-open li { opacity: 1; translate: 0 0; }
   .whiteboard li:nth-child(even) { padding-left: clamp(20px, 8vw, 120px); }
-  .whiteboard li a { position: relative; text-decoration: none; color: #1d3a8a; }
+  .whiteboard li a { position: relative; text-decoration: none; color: var(--aubergine); }
   .wb-word { font-family: var(--f-hand); font-size-adjust: 0.4; line-height: 1.05; font-size: clamp(46px, 8.4vw, 104px); line-height: 1.05; padding-inline: 0.12em; }
   .wb-circle { position: absolute; left: -16%; top: -18%; width: 132%; height: 150%; fill: none; stroke: var(--mauve); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 0.5s ease; pointer-events: none; }
   .whiteboard li a:hover .wb-circle, .whiteboard li a:focus-visible .wb-circle { stroke-dashoffset: 0; }

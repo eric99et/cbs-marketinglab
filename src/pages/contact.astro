@@ -5,7 +5,7 @@ import Logo from '../components/Logo.astro';
 import { img, socials, EMAIL } from '../data/site';
 const year = new Date().getFullYear();
 ---
-<Base page="contact" theme="ink" title="Say hi | CBS MarketingLab">
+<Base page="contact" theme="ink" title="Contact | CBS MarketingLab" description="Get in touch with CBS MarketingLab at Copenhagen Business School. Email us, follow us on Instagram and LinkedIn, or sign up for the newsletter.">
   <section class="wrap page-top head">
     <h1 class="page-title">
       <span class="line" data-split>Say hi.</span>
@@ -50,10 +50,10 @@ const year = new Date().getFullYear();
       <label class="news-title" for="nl">Get the good stuff first.</label>
       <p class="hand">No spam, we're too busy.</p>
       <div class="nl-row">
-        <input id="nl" type="email" required placeholder="you@student.cbs.dk" autocomplete="email" />
+        <input id="nl" name="email" type="email" required placeholder="you@student.cbs.dk" autocomplete="email" />
         <button class="btn" type="submit">Lock it in</button>
       </div>
-      <p class="hand thanks" data-thanks hidden>Got it. (The newsletter tool gets connected soon, so nothing was sent yet.)</p>
+      <p class="hand thanks">Opens your email app with a sign-up mail to us.</p>
     </form>
   </section>
 
@@ -68,7 +68,7 @@ const year = new Date().getFullYear();
   .pc-left { padding-right: clamp(18px, 3vw, 40px); display: grid; gap: 14px; align-content: start; }
   .pc-label { font-size: 26px; color: var(--sage-dk); }
   .msg { display: grid; gap: 14px; }
-  textarea, input { width: 100%; font-family: var(--f-body); font-size: 19px; line-height: 34px; color: #1d3a8a; background: repeating-linear-gradient(transparent 0 33px, rgba(32, 32, 32, 0.2) 33px 34px); border: 0; padding: 0 4px; resize: none; }
+  textarea, input { width: 100%; font-family: var(--f-body); font-size: 19px; line-height: 34px; color: var(--aubergine); background: repeating-linear-gradient(transparent 0 33px, rgba(32, 32, 32, 0.2) 33px 34px); border: 0; padding: 0 4px; resize: none; }
   input { height: 40px; }
   textarea:focus, input:focus { outline: none; background-color: rgba(144, 188, 165, 0.15); }
   .msg .btn { justify-self: start; }
@@ -79,7 +79,7 @@ const year = new Date().getFullYear();
   .postmark svg { width: 120px; height: 46px; fill: none; stroke: currentColor; stroke-width: 2; }
   .addr { font-style: normal; display: grid; font-family: var(--f-hand); font-size-adjust: 0.4; line-height: 1.05; font-size: clamp(22px, 2vw, 30px); line-height: 1.5; }
   .addr span { border-bottom: 1px solid rgba(32, 32, 32, 0.3); }
-  .addr a { color: #1d3a8a; font-size: 0.8em; word-break: break-all; }
+  .addr a { color: var(--aubergine); font-size: 0.8em; word-break: break-all; }
   .stamps { display: grid; gap: 22px; }
   .social-stamp { display: grid; gap: 6px; padding: 18px; text-decoration: none; color: var(--ink); background: var(--sage); border: 4px dotted var(--ink); rotate: 1.8deg; transition: rotate 0.2s ease, scale 0.2s ease; }
   .social-stamp:hover { rotate: -1.2deg; scale: 1.05; }
@@ -118,5 +118,9 @@ const year = new Date().getFullYear();
     location.href = `mailto:general.marketinglab@gmail.com?subject=${encodeURIComponent('Hi from ' + d.get('name'))}&body=${encodeURIComponent(String(d.get('msg')) + '\n\n' + d.get('name'))}`;
   });
   const news = document.querySelector<HTMLFormElement>('[data-news]')!;
-  news.addEventListener('submit', (e) => { e.preventDefault(); news.querySelector<HTMLElement>('[data-thanks]')!.hidden = false; });
+  news.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const mail = String(new FormData(news).get('email'));
+    location.href = `mailto:general.marketinglab@gmail.com?subject=${encodeURIComponent('Newsletter sign-up')}&body=${encodeURIComponent('Please add me to the newsletter: ' + mail)}`;
+  });
 </script>

@@ -10,9 +10,16 @@ const teamLines: Record<string, string> = {
   Digital: 'Builds the site you’re on.',
   Finance: 'Keeps the lab (and the pizza) paid for.',
 };
+const shots = [
+  { src: 'event-bold-talk', alt: 'AI in marketing talk with Bold Scandinavia at Station', note: 'AI in marketing, Oct 2026' },
+  { src: 'stock-workshop', alt: 'Students working on a case together', note: '' },
+  { src: 'dinner', alt: 'Station Community Dinner with Bold Scandinavia and NoA', note: 'community dinner' },
+  { src: 'listening', alt: 'A student listening to a case presentation', note: '' },
+  { src: 'team-collage', alt: 'MarketingLab board introductions on Instagram', note: 'the board, 2026' },
+];
 const stripe = ['var(--sage-dk)', 'var(--mauve)', 'var(--moss)', 'var(--aubergine)', 'var(--ink)'];
 ---
-<Base page="about" theme="paper" title="Who we are | CBS MarketingLab">
+<Base page="about" theme="paper" title="About us: 21 CBS students, one lab | CBS MarketingLab" description="Meet CBS MarketingLab: the board, our five teams and what we stand for. A student organisation bringing CBS students and the marketing industry together.">
   <section class="hero">
     <div class="wrap hero-in">
       <h1 class="big">
@@ -38,7 +45,18 @@ const stripe = ['var(--sage-dk)', 'var(--mauve)', 'var(--moss)', 'var(--aubergin
   </section>
 
   <section class="vision" aria-label="Our vision">
-    <p class="wrap"><span class="hand">our vision</span>{vision}</p>
+    <div class="wrap"><p><span class="hand">our vision</span>{vision}</p></div>
+  </section>
+
+  <section class="life" aria-label="Life in the lab">
+    <ul class="wrap shots">
+      {shots.map((s, i) => (
+        <li class={`shot s${i}`}>
+          <img src={img(s.src)} alt={s.alt} loading="lazy" />
+          {s.note && <span class="hand">{s.note}</span>}
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section class="wrap vals" aria-labelledby="v-title">
@@ -91,6 +109,14 @@ const stripe = ['var(--sage-dk)', 'var(--mauve)', 'var(--moss)', 'var(--aubergin
   .vision p { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(40px, 6.4vw, 112px); line-height: 0.92; margin: 0; max-width: 20ch; }
   .vision .hand { display: block; color: var(--sage); font-size: clamp(40px, 4vw, 64px); margin-bottom: 10px; }
 
+  .life { padding-top: clamp(70px, 9vw, 120px); }
+  .shots { list-style: none; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr; gap: clamp(12px, 1.6vw, 22px); align-items: end; }
+  .shot { position: relative; margin: 0; }
+  .shot img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1); transition: filter 0.3s ease; }
+  .shot:hover img { filter: none; }
+  .shot .hand { display: block; font-size: 24px; color: var(--sage-dk); margin-top: 6px; }
+  .s0, .s2, .s4 { rotate: -1deg; } .s1, .s3 { rotate: 1deg; translate: 0 -18px; }
+  .s0::before, .s2::before { content: ''; position: absolute; z-index: 2; top: -12px; left: 50%; width: 80px; height: 24px; translate: -50% 0; rotate: -3deg; background: var(--tape); }
   .h2 { font-size: clamp(48px, 7vw, 110px); margin: 0 0 36px; }
   .vals { padding-block: clamp(80px, 10vw, 140px); }
   .val-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
@@ -110,6 +136,8 @@ const stripe = ['var(--sage-dk)', 'var(--mauve)', 'var(--moss)', 'var(--aubergin
 
   @media (max-width: 900px) {
     .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .s4 { display: none; }
     .col:nth-child(even) { margin-top: 40px; }
     .val-list li { grid-template-columns: 48px 1fr; }
     .vt { grid-column: 2; }

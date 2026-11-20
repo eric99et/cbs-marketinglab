@@ -9,18 +9,18 @@ const latest = past[0];
   <section class="hero" aria-labelledby="hero-title">
     <h1 id="hero-title" class="visually-hidden">Marketers in the making</h1>
     <p class="hero-word" aria-hidden="true"><span class="line" data-word>{"Marketers".split("").map((c) => <span class="ch">{c}</span>)}</span></p>
-    <img class="hero-crew" src={img('cutout-crew')} alt="" data-crew />
+    <img class="hero-crew" src={img('cutout-crew')} alt="" width="1200" height="677" fetchpriority="high" data-crew />
     <div class="hero-card tape" data-drop>
       <p class="card-title" aria-hidden="true">in the <span>making.</span></p>
-      <p class="hero-lede">Case work, panel debates and speaker events at Copenhagen Business School, with the people behind today's brands.</p>
+      <p class="hero-lede">The student marketing organisation at Copenhagen Business School. Case work, panel debates and speaker events with the people behind today's brands.</p>
       <div class="hero-cta">
         <a class="btn" href={url('events/')}>See our events</a>
         <a class="btn ghost" href={url('partners/')}>For companies</a>
       </div>
     </div>
     <figure class="hero-pol" data-drop aria-hidden="true">
-      <img src={img('dinner')} alt="" />
-      <figcaption class="hand">some of us already made it</figcaption>
+      <img src={img('dinner')} alt="Station Community Dinner with Bold Scandinavia" width="308" height="402" />
+      <figcaption class="hand">Station dinner, Oct 2026</figcaption>
     </figure>
   </section>
   <!-- PROOF: numbers + next event -->

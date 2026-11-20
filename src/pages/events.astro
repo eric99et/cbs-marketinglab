@@ -4,9 +4,21 @@ import Base from '../layouts/Base.astro';
 import Arrow from '../components/Arrow.astro';
 import { img, upcoming, past, socials, gcal } from '../data/site';
 
+const eventSchema = past
+  .filter((e) => /^\d{2}\.\d{2}\.\d{4}$/.test(e.date))
+  .map((e) => {
+    const [d, m, y] = e.date.split('.');
+    return {
+      '@context': 'https://schema.org', '@type': 'Event', name: e.title, description: e.blurb,
+      startDate: `${y}-${m}-${d}`, eventStatus: 'https://schema.org/EventScheduled', eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      location: { '@type': 'Place', name: e.place, address: { '@type': 'PostalAddress', addressLocality: 'Copenhagen', addressCountry: 'DK' } },
+      organizer: { '@type': 'Organization', name: 'CBS MarketingLab' },
+      performer: { '@type': 'Organization', name: e.with },
+    };
+  });
 // "Add to calendar" links for upcoming events (date as YYYY-MM-DD, time HH:MM)
 ---
-<Base page="events" theme="mist" title="Events | CBS MarketingLab">
+<Base page="events" theme="mist" title="Marketing events at CBS | CBS MarketingLab" description="Case nights, panel debates and speaker events at Copenhagen Business School with brands like Bold Scandinavia, Nielsen and Arla. See what is next and what we have done." schema={eventSchema}>
   <section class="wrap page-top head">
     <h1 class="page-title">
       <span class="line" data-split>Things you'll</span>
@@ -41,7 +53,7 @@ import { img, upcoming, past, socials, gcal } from '../data/site';
   <section class="wall" aria-labelledby="wall-title">
     <div class="wall-pin" data-hscroll>
       <div class="wrap">
-        <h2 id="wall-title" class="wall-title">The highlight reel <span class="hand">scroll <Arrow /></span></h2>
+        <h2 id="wall-title" class="wall-title">The highlight reel <span class="hand" aria-hidden="true">scroll <Arrow /></span></h2>
       </div>
       <div class="track" data-track>
         {past.map((e, i) => (
