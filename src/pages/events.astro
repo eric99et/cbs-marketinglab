@@ -1,8 +1,9 @@
 ---
 // EVENTS: dark room. Gig-poster wall that scrolls sideways, photos develop as they pass.
 import Base from '../layouts/Base.astro';
+import NextUp from '../components/NextUp.astro';
 import Arrow from '../components/Arrow.astro';
-import { img, upcoming, past, socials, gcal } from '../data/site';
+import { img, upcoming, past, socials, gcal, url } from '../data/site';
 
 const eventSchema = past
   .filter((e) => /^\d{2}\.\d{2}\.\d{4}$/.test(e.date))
@@ -71,6 +72,7 @@ const eventSchema = past
   </section>
 
   <p class="wrap footnote">* "missing" felt too polite.</p>
+  <NextUp href={url('partners/')} label="Partners" note="for companies" />
 </Base>
 
 <style>

@@ -2,6 +2,7 @@
 // ABOUT: people first. Sage hero with the board as tall portrait columns,
 // a black vision band, values as big ruled rows, teams as colour stripes.
 import Base from '../layouts/Base.astro';
+import NextUp from '../components/NextUp.astro';
 import { url, img, board, MEMBERS, teams as teamNames, vision, values } from '../data/site';
 const teamLines: Record<string, string> = {
   Partnerships: 'Brings in the brands and the briefs.',
@@ -86,6 +87,7 @@ const stripe = ['var(--sage-dk)', 'var(--mauve)', 'var(--moss)', 'var(--aubergin
       ))}
     </ul>
   </section>
+  <NextUp href={url('events/')} label="Events" note="next in the lab" />
 </Base>
 
 <style>

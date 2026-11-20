@@ -1,7 +1,8 @@
 ---
 // JOIN: whiteboard after a brainstorm. Marker words, sticky notes, a checklist that ticks itself.
 import Base from '../layouts/Base.astro';
-import { perks, faq, EMAIL, img } from '../data/site';
+import NextUp from '../components/NextUp.astro';
+import { perks, faq, EMAIL, img, url } from '../data/site';
 const steps = [
   { n: '1', title: 'Apply', text: 'Two minutes. Tell us who you are.' },
   { n: '2', title: 'Coffee chat', text: 'A relaxed talk with the team. No trick questions.' },
@@ -78,6 +79,7 @@ const faqSchema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainE
       ))}
     </div>
   </section>
+  <NextUp href={url('contact/')} label="Say hi" note="still curious?" />
 </Base>
 
 <style>

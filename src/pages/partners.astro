@@ -1,7 +1,8 @@
 ---
 // PARTNERS: cream, brand colours. A clean grid of partner names.
 import Base from '../layouts/Base.astro';
-import { partners, img, PARTNER_EMAIL, MEMBERS, board } from '../data/site';
+import NextUp from '../components/NextUp.astro';
+import { partners, img, PARTNER_EMAIL, MEMBERS, board, url } from '../data/site';
 const head = board.find((b) => b.key === 'partnerships')!;
 const formats = [
   { n: 'A', title: 'Case work', tag: 'Insight', text: 'Workshops and case competitions built around a live brief from your brand. Student teams dig in, develop concepts and pitch them back to you.', role: 'set the brief, coach the teams, judge the final pitches' },
@@ -68,6 +69,7 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
     </div>
    </div>
   </section>
+  <NextUp href={url('join/')} label="Join us" note="for students" />
 </Base>
 
 <style>

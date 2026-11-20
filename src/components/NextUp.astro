@@ -1,0 +1,22 @@
+---
+// One consistent "next page" link at the end of every page: the thread through the site.
+import Arrow from './Arrow.astro';
+const { href, label, note } = Astro.props as { href: string; label: string; note: string };
+---
+<nav class="nextpage wrap" aria-label="Next page">
+  <a href={href}>
+    <span class="hand">{note}</span>
+    <strong>{label}</strong>
+    <Arrow />
+  </a>
+</nav>
+<style>
+  .nextpage { padding-block: 0 clamp(40px, 6vw, 80px); }
+  .nextpage a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px 28px; text-decoration: none; color: var(--fg); border-top: 1.5px solid currentColor; padding-top: 22px; }
+  .nextpage .hand { font-size: clamp(26px, 2.6vw, 36px); color: var(--mauve); }
+  .nextpage strong { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: clamp(48px, 7vw, 110px); line-height: 0.9; transition: translate 0.3s ease; }
+  .nextpage :global(.h-arrow) { width: clamp(60px, 7vw, 110px); color: var(--fg); transition: translate 0.3s ease; }
+  .nextpage a:hover strong { translate: 10px 0; }
+  .nextpage a:hover :global(.h-arrow) { translate: 18px 0; }
+  @media (max-width: 700px) { .nextpage a { grid-template-columns: 1fr auto; } .nextpage .hand { grid-column: 1 / -1; } }
+</style>
