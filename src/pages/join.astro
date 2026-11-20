@@ -83,11 +83,11 @@ const teams = ['Partnerships', 'Operations', 'Marketing', 'Digital', 'Finance', 
   .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(32px, 6vw, 90px); align-items: center; padding-bottom: clamp(60px, 9vw, 110px); }
   .title { font-size: clamp(72px, 12vw, 200px); line-height: 0.84; color: #1d3a8a; }
   .title .line { display: block; overflow: hidden; }
-  .marker { position: relative; display: inline-block; font-size: clamp(44px, 6vw, 92px); color: #c0392b; rotate: -3deg; margin: 6px 0 34px; }
-  .underline { position: absolute; left: 0; bottom: -8px; width: 100%; height: 30px; fill: none; stroke: #c0392b; stroke-width: 4; stroke-linecap: round; }
+  .marker { position: relative; display: inline-block; font-size: clamp(44px, 6vw, 92px); color: var(--mauve); rotate: -1.8deg; margin: 6px 0 34px; }
+  .underline { position: absolute; left: 0; bottom: -8px; width: 100%; height: 30px; fill: none; stroke: var(--mauve); stroke-width: 4; stroke-linecap: round; }
   .hero .lede { margin-bottom: 28px; }
-  .lined { background: #fff repeating-linear-gradient(transparent 0 35px, #cfd9e6 35px 36px); background-position: 0 18px; }
-  .checklist { padding: 34px 34px 26px 54px; rotate: 2deg; box-shadow: 0 14px 30px rgba(32, 32, 32, 0.16); border-left: 2px solid rgba(192, 57, 43, 0.4); }
+  .lined { background: #fff repeating-linear-gradient(transparent 0 35px, var(--sage-xl) 35px 36px); background-position: 0 18px; }
+  .checklist { padding: 34px 34px 26px 54px; rotate: 1.2deg; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.12); border-left: 2px solid var(--mauve-lt); }
   .cl-title { font-size: 44px; line-height: 1; margin-bottom: 8px; }
   .checklist ul { list-style: none; margin: 0; padding: 0; }
   .checklist li { font-family: var(--f-hand); font-size-adjust: 0.4; font-size: 27px; line-height: 36px; display: flex; gap: 12px; align-items: center; }
@@ -100,17 +100,17 @@ const teams = ['Partnerships', 'Operations', 'Marketing', 'Digital', 'Finance', 
   .flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
   .flow li { position: relative; display: grid; gap: 10px; align-content: start; }
   .circle-n { position: relative; width: 96px; height: 96px; display: grid; place-items: center; font-family: var(--f-display); font-size: 52px; line-height: 1; padding-top: 0.06em; }
-  .circle-n svg { position: absolute; inset: 0; fill: none; stroke: #c0392b; stroke-width: 3; stroke-linecap: round; }
+  .circle-n svg { position: absolute; inset: 0; fill: none; stroke: var(--mauve); stroke-width: 3; stroke-linecap: round; }
   .flow h3 { font-size: clamp(34px, 3.4vw, 52px); }
   .flow-arrow { position: absolute; right: -6px; top: 34px; width: 80px; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 
   .apply { padding-block: clamp(50px, 7vw, 90px); display: grid; grid-template-columns: minmax(0, 900px) minmax(0, 1fr); gap: clamp(30px, 4vw, 60px); align-items: start; }
   .apply .paper { grid-row: 1; grid-column: 1; }
-  .apply-pol { grid-column: 2; grid-row: 1; margin: 60px 0 0; background: #fff; padding: 10px 10px 12px; rotate: 4deg; box-shadow: 0 14px 30px rgba(32, 32, 32, 0.16); }
+  .apply-pol { grid-column: 2; grid-row: 1; margin: 60px 0 0; background: #fff; padding: 10px 10px 12px; rotate: 2deg; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.12); }
   .apply-pol img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
-  .apply-pol figcaption { font-size: 26px; color: #c0392b; margin-top: 4px; }
+  .apply-pol figcaption { font-size: 26px; color: var(--mauve); margin-top: 4px; }
   @media (max-width: 1100px) { .apply { grid-template-columns: 1fr; } .apply-pol { display: none; } }
-  .paper { background: #fff; padding: clamp(26px, 4vw, 56px); box-shadow: 0 18px 40px rgba(32, 32, 32, 0.14); rotate: -0.6deg; max-width: 900px; }
+  .paper { background: #fff; padding: clamp(26px, 4vw, 56px); box-shadow: 0 10px 24px rgba(32, 32, 32, 0.12); rotate: -0.4deg; max-width: 900px; }
   .apply-title { font-size: clamp(56px, 7vw, 110px); }
   .apply-note { font-size: 28px; color: var(--sage-dk); margin-bottom: 30px; }
   .form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 26px; }
@@ -124,22 +124,22 @@ const teams = ['Partnerships', 'Operations', 'Marketing', 'Digital', 'Finance', 
   .chips { display: flex; flex-wrap: wrap; gap: 10px; }
   .chip input { position: absolute; opacity: 0; }
   .chip span { display: inline-block; padding: 8px 16px; border: 2px solid var(--ink); border-radius: 999px; cursor: pointer; font-family: var(--f-mono); font-size: 14px; transition: background 0.15s ease, rotate 0.15s ease; }
-  .chip input:checked + span { background: var(--sage); rotate: -3deg; }
+  .chip input:checked + span { background: var(--sage); rotate: -1.8deg; }
   .chip input:focus-visible + span { outline: 2px dashed var(--ink); outline-offset: 3px; }
   .small { font-size: 14px; color: var(--ink-soft); }
 
   .faq { padding-block: clamp(50px, 7vw, 90px) clamp(80px, 10vw, 140px); }
   .notes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; align-items: start; }
-  .note { padding: 22px 20px 26px; box-shadow: 2px 8px 14px rgba(0, 0, 0, 0.15); min-height: 170px; }
+  .note { padding: 22px 20px 26px; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.12); min-height: 170px; }
   .note summary { font-size: 30px; line-height: 1.1; cursor: pointer; list-style: none; }
   .note summary::-webkit-details-marker { display: none; }
-  .note summary::after { content: ' +'; color: #c0392b; }
+  .note summary::after { content: ' +'; color: var(--mauve); }
   .note[open] summary::after { content: ' −'; }
   .note p { margin-top: 12px; font-size: 16px; }
-  .n0 { background: var(--postit); rotate: -3deg; }
-  .n1 { background: #f9c6c9; rotate: 2deg; }
-  .n2 { background: #c9e4d6; rotate: -1deg; }
-  .n3 { background: #cfe0f7; rotate: 3deg; }
+  .n0 { background: var(--postit); rotate: -1.8deg; }
+  .n1 { background: var(--mauve-lt); rotate: 1.2deg; }
+  .n2 { background: var(--sage-lt); rotate: -0.6deg; }
+  .n3 { background: var(--paper-2); rotate: 1.8deg; }
   @media (max-width: 900px) {
     .hero, .flow, .form { grid-template-columns: 1fr; }
     .flow-arrow { display: none; }

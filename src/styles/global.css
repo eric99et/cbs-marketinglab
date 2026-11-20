@@ -44,18 +44,6 @@ body {
   overflow-x: hidden;
   transition: background-color 0.6s ease, color 0.6s ease;
 }
-/* paper grain */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.18;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 p { margin: 0; }
@@ -84,7 +72,7 @@ h1, h2, h3 {
   width: 96px;
   height: 28px;
   translate: -50% 0;
-  rotate: -4deg;
+  rotate: -2deg;
   background: var(--tape);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   z-index: 3;
@@ -96,23 +84,23 @@ h1, h2, h3 {
   align-items: center;
   gap: 10px;
   font-family: var(--f-mono);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.06em;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   padding: 14px 22px;
   background: var(--ink);
   color: var(--paper);
-  border: 2px solid var(--ink);
-  box-shadow: 5px 5px 0 var(--sage);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-.btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--sage); }
-.btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--sage); }
+.btn:hover { background: var(--sage-dk); border-color: var(--sage-dk); color: var(--paper); }
 .btn:focus:not(:focus-visible) { outline: none; }
 .btn:focus-visible { outline: 3px solid var(--postit); outline-offset: 3px; }
-.btn.ghost { background: transparent; color: inherit; border-color: currentColor; box-shadow: 5px 5px 0 var(--mauve); }
+.btn.ghost { background: transparent; color: inherit; border-color: currentColor; }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
 /* chapter: background colour changes the whole room */
 .chapter { position: relative; padding-block: clamp(80px, 12vw, 160px); }
@@ -147,4 +135,5 @@ body { background-color: var(--bg); color: var(--fg); }
 .page-title { font-size: clamp(72px, 15vw, 240px); line-height: 0.84; }
 .page-title .line { display: block; overflow: hidden; }
 
-.site-header .logo .ml-logo { box-shadow: 0 0 0 2px var(--ink); }
+
+.site-header .logo .ml-logo { box-shadow: 0 0 0 1.5px var(--ink); }

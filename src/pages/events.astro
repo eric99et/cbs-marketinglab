@@ -45,7 +45,7 @@ import { img, upcoming, past, socials, gcal } from '../data/site';
       </div>
       <div class="track" data-track>
         {past.map((e, i) => (
-          <article class={`poster tone-${e.tone}`} style={`--r:${i % 2 ? 2.5 : -2}deg`}>
+          <article class={`poster tone-${e.tone}`} style={`--r:${i % 2 ? 1.2 : -1}deg`}>
             <div class="poster-img"><img src={img(e.photo)} alt={`${e.title} with ${e.with}`} loading="lazy" /></div>
             <p class="poster-date">{e.date} · {e.place}</p>
             <h3>{e.title}</h3>
@@ -64,25 +64,25 @@ import { img, upcoming, past, socials, gcal } from '../data/site';
 <style>
   .head { position: relative; }
   .strike { position: relative; color: var(--mauve); }
-  .strike::after { content: ''; position: absolute; left: -2%; right: -2%; top: 50%; height: 0.08em; background: #e0503f; rotate: -4deg; transform-origin: left; scale: var(--s, 0) 1; transition: scale 0.6s ease 0.9s; }
+  .strike::after { content: ''; position: absolute; left: -2%; right: -2%; top: 50%; height: 0.08em; background: var(--mauve); rotate: -2deg; transform-origin: left; scale: var(--s, 0) 1; transition: scale 0.6s ease 0.9s; }
   body.is-loaded .strike { --s: 1; }
-  .fix { font-size: clamp(40px, 6vw, 90px); color: #e0503f; rotate: -6deg; margin: -0.3em 0 0 clamp(120px, 30vw, 520px); opacity: var(--f, 0); transition: opacity 0.4s ease 1.4s; }
+  .fix { font-size: clamp(40px, 6vw, 90px); color: var(--mauve); rotate: -2deg; margin: -0.3em 0 0 clamp(120px, 30vw, 520px); opacity: var(--f, 0); transition: opacity 0.4s ease 1.4s; }
   body.is-loaded .fix { --f: 1; }
   .head .lede { margin-top: clamp(50px, 6vw, 90px); color: var(--ink-soft); }
 
   .next { padding-block: clamp(50px, 7vw, 90px); }
-  .ticket { display: grid; grid-template-columns: 90px 1fr; max-width: 760px; background: var(--mauve-lt); color: var(--ink); rotate: -2deg; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16); }
+  .ticket { display: grid; grid-template-columns: 90px 1fr; max-width: 760px; background: var(--mauve-lt); color: var(--ink); rotate: -1.2deg; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.12); }
   .stub { display: grid; place-content: center; gap: 10px; text-align: center; border-right: 3px dashed var(--ink); writing-mode: vertical-rl; rotate: 180deg; font-size: 16px; letter-spacing: 0.3em; }
   .ticket-body { padding: 30px 34px 34px; display: grid; gap: 12px; justify-items: start; }
   .ticket h2 { font-size: clamp(48px, 6vw, 88px); }
   .ticket .hand { font-size: 28px; }
 
-  .wall-pin { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 60px; overflow: hidden; }
+  .wall-pin { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 100px 40px; overflow: hidden; }
   .wall-title { font-size: clamp(40px, 5vw, 72px); color: var(--ink); display: flex; gap: 20px; align-items: baseline; }
   .wall-title .hand { color: var(--mauve); font-size: 0.5em; text-transform: none; }
   .next-up { font-size: 26px; }
-  .track { display: flex; gap: clamp(28px, 3vw, 48px); align-items: center; padding: 50px var(--gutter) 30px; width: max-content; }
-  .poster { width: clamp(270px, 26vw, 370px); padding: 14px 14px 22px; background: var(--paper); color: var(--ink); rotate: var(--r); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16); flex: none; transition: rotate 0.3s ease, translate 0.3s ease; }
+  .track { display: flex; gap: clamp(28px, 3vw, 48px); align-items: flex-start; padding: 30px var(--gutter) 10px; width: max-content; }
+  .poster { width: clamp(220px, min(24vw, calc((100svh - 470px) * 0.8)), 340px); padding: 14px 14px 22px; background: var(--paper); color: var(--ink); rotate: var(--r); box-shadow: 0 10px 24px rgba(32, 32, 32, 0.12); flex: none; transition: rotate 0.3s ease, translate 0.3s ease; }
   .poster:hover { rotate: 0deg; translate: 0 -8px; }
   .poster.tone-sage { background: var(--sage-lt); }
   .poster.tone-mauve { background: var(--mauve-lt); }

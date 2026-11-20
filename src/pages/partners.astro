@@ -1,5 +1,5 @@
 ---
-// PARTNERS: cream, brand colours. Rows of partner names that slide with your scroll.
+// PARTNERS: cream, brand colours. A clean grid of partner names.
 import Base from '../layouts/Base.astro';
 import { partners, img, PARTNER_EMAIL, MEMBERS, board } from '../data/site';
 const head = board.find((b) => b.key === 'partnerships')!;
@@ -24,16 +24,10 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
       </h1>
       <p class="hand aside">(and liked it)</p>
     </div>
-    <div class="rows" aria-hidden="true">
-      {[0, 1, 2].map((r) => (
-        <div class={`row row${r}`} data-row={r}>
-          <div class="row-track">
-            {[...partners.slice(r * 4), ...partners.slice(0, r * 4), ...partners].map((p, i) => <span class={`nm c${(i + r) % 3}`}>{p}</span>)}
-          </div>
-        </div>
-      ))}
-    </div>
-    <ul class="visually-hidden">{partners.map((p) => <li>{p}</li>)}</ul>
+    <div class="wrap"><ul class="logos">
+      {partners.map((p) => <li>{p}</li>)}
+      <li class="you"><a href={`mailto:${PARTNER_EMAIL}?subject=${subject}`}>Your brand?</a></li>
+    </ul></div>
   </section>
 
   <section class="pitch" aria-labelledby="pitch-title">
@@ -80,21 +74,18 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
   .top { padding-bottom: clamp(50px, 7vw, 100px); overflow: hidden; }
   .title { font-size: clamp(56px, 9vw, 150px); line-height: 0.86; }
   .title .line { display: block; overflow: hidden; }
-  .aside { font-size: clamp(40px, 4.4vw, 66px); color: var(--mauve); rotate: -3deg; margin: 4px 0 0 clamp(0px, 20vw, 380px); }
-  .rows { margin-top: clamp(40px, 6vw, 80px); display: grid; gap: 6px; }
-  .row { overflow: hidden; border-block: 2px solid var(--ink); padding-block: 6px; }
-  .row1 { background: var(--sage); }
-  .row2 { background: var(--ink); }
-  .row-track { display: flex; width: max-content; will-change: transform; }
-  .nm { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(48px, 7.4vw, 120px); line-height: 1; padding-inline: 0.28em; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.56em; }
-  .nm::after { content: '✶'; font-family: var(--f-body); font-size: 0.32em; color: var(--mauve); }
-  .row0 .c1 { color: var(--mauve); }
-  .row1 .nm { color: var(--paper); } .row1 .c0 { color: var(--ink); } .row1 .nm::after { color: var(--ink); }
-  .row2 .nm { color: var(--paper); } .row2 .c2 { color: var(--sage); } .row2 .nm::after { color: var(--sage); }
+  .aside { font-size: clamp(40px, 4.4vw, 66px); color: var(--mauve); rotate: -1.8deg; margin: 4px 0 0 clamp(0px, 20vw, 380px); }
+  .logos { list-style: none; margin-top: clamp(40px, 6vw, 80px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1.5px solid var(--ink); border-left: 1.5px solid var(--ink); padding: 0; }
+  .logos li { display: grid; place-items: center; text-align: center; min-height: clamp(110px, 11vw, 160px); padding: 16px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); font-family: var(--f-display); text-transform: uppercase; font-size: clamp(22px, 2.2vw, 34px); line-height: 1; transition: background 0.25s ease, color 0.25s ease; }
+  .logos li:hover { background: var(--sage); }
+  .logos .you { background: var(--ink); color: var(--paper); }
+  .logos .you a { text-decoration: none; color: inherit; }
+  .logos .you:hover { background: var(--sage-dk); }
+  @media (max-width: 700px) { .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
   .pitch { padding-block: clamp(70px, 10vw, 130px) clamp(80px, 11vw, 150px); background: var(--sage-xl); color: var(--ink); border-top: 2px solid var(--ink); }
   .pitch-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 70px); align-items: center; }
-  .pitch-pol { margin: 0; background: #fff; padding: 12px 12px 14px; rotate: 3deg; box-shadow: 0 18px 36px rgba(32, 32, 32, 0.2); }
+  .pitch-pol { margin: 0; background: #fff; padding: 12px 12px 14px; rotate: 1.8deg; box-shadow: 0 10px 24px rgba(32, 32, 32, 0.12); }
   .pitch-pol img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
   .pitch-pol figcaption { font-size: 26px; color: var(--mauve); margin-top: 6px; }
   @media (max-width: 900px) { .pitch-head { grid-template-columns: 1fr; } }
@@ -135,26 +126,10 @@ const subject = encodeURIComponent('Partnership with MarketingLab');
 </style>
 
 <script>
-  import { gsap, reduce, splitLines, allBasics, ScrollTrigger } from '../scripts/motion';
+  import { gsap, reduce, splitLines, allBasics} from '../scripts/motion';
   splitLines();
   if (!reduce) {
-    // each row drifts on its own; scrolling speeds it up and tilts it
-    const tracks = gsap.utils.toArray<HTMLElement>('.row-track');
-    const loops = tracks.map((t, i) => {
-      const dir = i % 2 ? 1 : -1;
-      const tw = gsap.fromTo(t, { xPercent: dir < 0 ? 0 : -50 }, { xPercent: dir < 0 ? -50 : 0, duration: 38 + i * 6, ease: 'none', repeat: -1 });
-      return tw;
-    });
-    gsap.from('.row', { xPercent: (i) => (i % 2 ? 40 : -40), duration: 1.1, stagger: 0.12, ease: 'power3.out', delay: 0.3 });
-    let skewTo = gsap.quickTo('.row-track', 'skewX', { duration: 0.5, ease: 'power3' });
-    ScrollTrigger.create({
-      trigger: '.rows', start: 'top bottom', end: 'bottom top',
-      onUpdate: (self) => {
-        const v = gsap.utils.clamp(-1, 1, self.getVelocity() / 1500);
-        loops.forEach((l) => gsap.to(l, { timeScale: 1 + Math.abs(v) * 5, duration: 0.2, overwrite: true, onComplete: () => { gsap.to(l, { timeScale: 1, duration: 1.2 }); } }));
-        skewTo(v * -8);
-      },
-    });
+    gsap.from('.logos li', { clipPath: 'inset(0 0 100% 0)', duration: 0.7, stagger: 0.04, ease: 'power3.out', delay: 0.3 });
     gsap.from('.pk', { y: 80, rotation: (i) => [-6, 3, 7][i], duration: 0.9, stagger: 0.12, ease: 'back.out(1.4)', scrollTrigger: { trigger: '.packages', start: 'top 85%' } });
   }
   allBasics();
